@@ -1,0 +1,9 @@
+Nuevo Link: 
+Lin (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0)
+Nuevo Quality:
+(Qua "Bronce" 1 2.0)
+Nuevo City:
+Cit "Igna" (Poi 1 0)
+Cit "Mati" (Poi 0 1)
+Nuevo Poi:
+Poi 0 0
