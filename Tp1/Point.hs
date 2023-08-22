@@ -6,7 +6,7 @@ newP :: Int -> Int -> Point -- Nuevo Punto
 newP = Poi
 
 difP :: Point -> Point -> Float -- distancia absoluta (entre puntos)
-difP (Poi x1 y1) (Poi x2 y2)
+difP (Poi x1 y1) (Poi x2 y2) 
   | x1 < 0 && x2 < 0 || y1 < 0 && y2 < 0 = abs (sqrt (fromIntegral (x1 * x1 + y1 * y1)) - sqrt (fromIntegral (x2 ^ x2 + y2 ^ y2)))
   | x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 = abs (sqrt (fromIntegral (x1 * x1 + y1 * y1)) + sqrt (fromIntegral (x2 ^ x2 + y2 ^ y2)))
   | otherwise = abs (sqrt (fromIntegral (x1 ^ 2 + y1 ^ 2)) - sqrt (fromIntegral (x2 ^ 2 + y2 ^ 2)))

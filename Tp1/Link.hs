@@ -36,5 +36,9 @@ delayL (Lin _ _ calidad) = delayQ calidad
 t :: [Bool]
 t =
   [ newL (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0) == Lin (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0),
+    linksL (Cit "Mati" (Poi 0 1)) (Cit "Igna" (Poi 1 0)) (Lin (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0)),
+    connectsL (Cit "Igna" (Poi 1 0)) (Lin (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0)),
+    capacityL (Lin (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0)) == 1,
+    delayL (Lin (Cit "Igna" (Poi 1 0)) (Cit "Mati" (Poi 0 1)) (Qua "Bronce" 1 2.0)) == 2.0,
     True
   ]
