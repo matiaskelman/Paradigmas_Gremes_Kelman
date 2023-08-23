@@ -4,7 +4,7 @@ module Tunel (Tunel, newT, connectsT, usesT) where
 import City (City (..), distanceC, nameC, newC)
 import Link (Link (..), capacityL, connectsL, delayL, linksL, newL)
 import Point (Point (..), difP, newP)
-import Quality (Quality (..), capacityQ, delayQ, newQ)
+import Quality (Quality (..), capacityQ, delayQ, delayT, newQ)
 import Data.Text.Array (new)
 
 data Tunel = Tun [Link] deriving (Eq, Show)
@@ -27,7 +27,8 @@ usesT l (Tun t)
   | length[y | y <- t, y == l] == 1 = True
   | otherwise = False
 
---delayT :: Tunel -> Float -- la demora que sufre una conexión en este túnel
+delayT :: Tunel -> Float -- la demora que sufre una conexión en este túnel
+delayT (Tun [Lin _ _ q]) = foldr (\q fold -> acc + q) 0 
 -- { esta demora es en unidades de tiempo, cuanto demora la información en recorrer el túnel }
 t :: [Bool]
 t =
