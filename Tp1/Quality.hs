@@ -1,7 +1,7 @@
-module Quality (Quality (..), newQ, capacityQ, delayQ) where
+module Quality (Quality , newQ, capacityQ, delayQ) where
 
-import City (City (..), distanceC, nameC, newC)
-import Point (Point (..), difP, newP)
+import City (City , distanceC, nameC, newC)
+import Point (Point , difP, newP)
 
 data Quality = Qua String Int Float deriving (Eq, Show)
 
