@@ -25,6 +25,5 @@ t =
     difP (Poi 2 0) (Poi (-3) 0) == 5,
     difP (Poi (-2) 0) (Poi 3 0) == 5,
     difP (Poi (-2) 0) (Poi (-3) 0) == 1,
-    --difP (Poi 4 5) (Poi (-2) 1) == (distP (Poi 4 5) + distP (Poi (-2) 1)),
     True
   ]

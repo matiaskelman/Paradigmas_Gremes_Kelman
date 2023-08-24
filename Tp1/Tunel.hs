@@ -38,7 +38,6 @@ usesT l (Tun t)
 
 delayT :: Tunel -> Float -- la demora que sufre una conexión en este túnel
 delayT (Tun links) = foldr (\link acc -> delayL link + acc) 0 links
-  -- foldr (\each acc -> acc + delayL each) 0 
 -- { esta demora es en unidades de tiempo, cuanto demora la información en recorrer el túnel }
 
 punto1 :: Point
