@@ -66,6 +66,7 @@ link2 = newL ciudad2 ciudad3 calidad2
 link3 = newL ciudad3 ciudad4 calidad2
 
 
+tunel1 :: Tunel
 tunel1 = Tun [link1,link2]
 
 
