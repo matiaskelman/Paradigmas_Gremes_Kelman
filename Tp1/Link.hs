@@ -14,17 +14,11 @@ connectsL :: City -> Link -> Bool -- indica si esta ciudad es parte de este link
 connectsL city1 (Lin city2 city3 _)
   | city1 == city2 || city1 == city3 = True
   | otherwise = False 
--- connectsL (Cit nombre _) (Lin ciudad1 ciudad2 _)
---   | nombre == nameC ciudad1 || nombre == nameC ciudad2 = True
---   | otherwise = False
 
 linksL :: City -> City -> Link -> Bool -- indica si estas dos ciudades distintas están conectadas mediante este link
 linksL city1 city2 (Lin city3 city4 _)
  | (city1 == city3 && city2 == city4) || (city1 == city4 && city2 == city3) = True
  | otherwise = False
--- linksL (Cit nom1 _) (Cit nom2 _) (Lin ciudad1 ciudad2 _)
---   | (nom1 == nameC ciudad1 && nom2 == nameC ciudad2) || (nom1 == nameC ciudad2 && nom2 == nameC ciudad1) = True
---   | otherwise = False
 
 -- { Un Link es naturalmente bidireccional, Si las ciudades A y B están enlazadas por un link li, linksL A B li y linksL B A li es true }
 
@@ -40,11 +34,17 @@ delayL (Lin _ _ quality) = delayQ quality
 -- No importan las unidades, sí la relación entre los valores }
 
 
+punto1 :: Point
 punto1 = newP 1 0
+punto2 :: Point
 punto2 = newP 0 1
+ciudad1 :: City
 ciudad1 = newC "Igna" punto1
+ciudad2 :: City
 ciudad2 = newC "Mati" punto2
+calidad1 :: Quality
 calidad1 = newQ "Bronce" 1 2.0
+calidad2 :: Quality
 calidad2 = newQ "Aluminio" 20 1.0
 
 t :: [Bool]
