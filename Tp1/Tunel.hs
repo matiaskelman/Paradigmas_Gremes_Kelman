@@ -1,5 +1,5 @@
 -- { Un Tunel es la conexión lógica que podemos establecer entre dos puntos, también es bidireccional }
-module Tunel (Tunel, newT, connectsT, usesT) where
+module Tunel (Tunel, newT, connectsT, delayT, usesT) where
 
 import City (City , distanceC, nameC, newC)
 import Link (Link , capacityL, connectsL, delayL, linksL, newL)
