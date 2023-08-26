@@ -34,11 +34,7 @@ checkLinksInR  links citiesList
 filterLinksInR ::  [Link] -> [City] -> [Link]                                                
 filterLinksInR  links citiesList = [link | link <- links,n <- [0..(length citiesList - 2)],  linksL ((!!) citiesList n) ((!!) citiesList (n+1)) link ]
     
-
-
-
 tunelR :: Region -> [ City ] -> Region 
--- tunelR (Reg x y z) cities= Reg x y z
 tunelR (Reg citiesR links tunels) citiesList 
     | checkLinksInR links citiesList && checkCitiesInR citiesR citiesList  = Reg citiesR links (newT(filterLinksInR links citiesList):tunels)
 
@@ -64,8 +60,11 @@ delayR (Reg _ _ tunels) city1 city2 = delayT(head[tunel | tunel <- tunels, conne
 -- dadas dos ciudades conectadas, indica la demora
 --{ Hay decisiones que tomar! }
 
+getTunel :: [Tunel] -> City -> City -> Tunel
+getTunel tunels city1 city2 =  [tunel | tunel <- tunels, connectsT city1 city2 tunel] !! 0
+
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
-availableCapacityForR (Reg x y z) city1 city2 = 0
+availableCapacityForR (Reg cities links tunels) city1 city2 = foldr (\each fold -> fold ) 0 [tunels]
 -- { Teniendo en cuenta la capacidad que los túneles existentes ocupan }
 -- { La conexión sólo se da a través de un túnel, y sólo se conectan los extremos }
 -- { Cada vez que se refiere a 'conectadas', necesariamente se refiere a un túnel }
@@ -101,7 +100,9 @@ link3 = newL ciudad3 ciudad4 calidad2
 link4 = newL ciudad4 ciudad5 calidad1
 
 tunel1 = newT [link1, link2]
-tunel2 = newT [link3, link1]
+tunel2 = newT [link1, link2, link3]
+
+tunel3 = newT [link2, link3]
 
 region1 = newR
 
