@@ -33,7 +33,7 @@ connectsT city1 city2 tunel1
 usesT :: Link -> Tunel -> Bool -- indica si este túnel atraviesa ese link
 -- { Un túnel recorre una serie de uno o más links, esta función indica si el link consultado es parte de esa serie }
 usesT l (Tun t) 
-  | length[y | y <- t, y == l] == 1 = True
+  | length[y | y <- t, y == l] >= 1 = True
   | otherwise = False
 
 delayT :: Tunel -> Float -- la demora que sufre una conexión en este túnel
