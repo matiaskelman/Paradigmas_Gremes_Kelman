@@ -14,10 +14,3 @@ capacityQ (Qua _ capacidad _) = capacidad
 delayQ :: Quality -> Float -- la demora por unidad de distancia que sucede en las conexiones de este canal
 delayQ (Qua _ _ demora) = demora
 
-t :: [Bool]
-t =
-  [ newQ "Bronce" 1 2.0 == Qua "Bronce" 1 2.0,
-    capacityQ (Qua "Bronce" 1 2.0) == 1,
-    delayQ (Qua "Bronce" 1 2.0) == 2.0,
-    True
-  ]
