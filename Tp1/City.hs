@@ -16,12 +16,3 @@ distanceC (Cit _ posicion1) (Cit _ posicion2) = difP posicion1 posicion2
 punto1 = newP 3 0
 punto2 = newP 5 0
 
-t :: [Bool]
-t =
-  [ newC "Igna" punto1 == Cit "Igna" punto1,
-    newC "Mati" punto2 == Cit "Mati" punto2,
-    nameC (Cit "Emilio Crack" punto1) == "Emilio Crack",
-    distanceC (Cit "Igna" punto1) (Cit "Mati" punto2) == difP punto1 punto2,
-    distanceC (Cit "Igna" punto1 ) (Cit "Mati" punto2) == 2,
-    True
-    ]
