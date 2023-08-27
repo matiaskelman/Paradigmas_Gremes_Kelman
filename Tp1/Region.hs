@@ -16,14 +16,21 @@ newR :: Region
 newR = Reg [] [] []
 
 foundR :: Region -> City -> Region -- agrega una nueva ciudad a la región
-foundR (Reg citys links tunels) cityNew = Reg ([cityNew] ++ citys) links tunels
+foundR (Reg citys links tunels) cityNew 
+    | elem city citys = error "La ciudad que busca ingresar ya existe."
+    | otherwise = Reg ([cityNew] ++ citys) links tunels
 
 linkR :: Region -> City -> City -> Quality -> Region -- enlaza dos ciudades de la región con un enlace de la calidad indicadar
-linkR (Reg citys links tunels) city1 city2 quality = Reg citys ( [newL city1 city2 quality] ++ links) tunels
-
+linkR (Reg citys links tunels) city1 city2 quality 
+    | elem (newL city1 city2 quality) links  = error "El link ya existe."
+    | city1 == city2 = error "Se ingreso la misma ciudad 2 veces."
+    | notElem city1 citys = error "La ciudad 1 no esta en la region."
+    | notElem city2 citys = error "La ciudad 2 no esta en la region."
+    | otherwise = Reg citys ( [newL city1 city2 quality] ++ links) tunels
+    
 checkCitiesInR :: [City] -> [City] -> Bool
-checkCitiesInR citiesR citiesList 
-    | length([True | city1 <- citiesList, city2 <- citiesR, city1 == city2]) == length citiesList = True
+checkCitiesInR citiesRegion checkCitiesList 
+    | length ([True | city1 <- checkCitiesList, city2 <- citiesRegion, city1 == city2]) == length checkCitiesList = True
     | otherwise = False
 
 checkLinksInR ::  [Link] -> [City] -> Bool
@@ -33,24 +40,36 @@ checkLinksInR  links citiesList
     -- | [True | city1 <- citiesR, city2 <- tail(citiesR), link <- links, linksL city1 city2 link] == "hola"
 
 filterLinksInR ::  [Link] -> [City] -> [Link]                                                
-filterLinksInR  links citiesList = [link | link <- links,n <- [0..(length citiesList - 2)],  linksL ((!!) citiesList n) ((!!) citiesList (n+1)) link ]
-    
+filterLinksInR  links citiesList = [link | link <- links, n <- [0..(length citiesList - 2)], linksL ((!!) citiesList n) ((!!) citiesList (n+1)) link ]
+
+checkCapacityOfLinks :: Region -> [Link] -> [Bool]
+checkCapacityOfLinks (Reg cities links tunels) links
+    | [True | link <- links , availableCapacityForR (Reg cities links tunels)  ]
+
 tunelR :: Region -> [ City ] -> Region 
-tunelR (Reg citiesR links tunels) citiesList 
-    | checkLinksInR links citiesList && checkCitiesInR citiesR citiesList  = Reg citiesR links (newT(filterLinksInR links citiesList):tunels)
+tunelR (Reg citiesR links tunels) citiesList
+    | not checkCitiesInR citiesR citiesList = error "Las ciudades estan en la region."
+    | not checkLinksInR links citiesList = error "Los links no estan en la region."
+    | availableCapacityForR (Reg citiesR links tunels) 
+    
+    
+--| checkLinksInR links citiesList && checkCitiesInR citiesR citiesList  = Reg citiesR links (newT(filterLinksInR links citiesList):tunels)
 
 -- genera una comunicación entre dos ciudades distintas de la región
 --{ la lista de ciudades indica el camino ordenado de enlaces que debe tomar el túnel de inicio  a fin }
 -- No se entiende que pide tunelR (Reg citys links tunels) citysN =
 
+
 connectedR :: Region -> City -> City -> Bool 
 connectedR (Reg _ _ tuneles) city1 city2 
+    |
     | length[tunel | tunel <- tuneles, connectsT city1 city2 tunel] > 0 = True 
     | otherwise = False
 -- indica si estas dos ciudades estan conectadas por un tunel
 
 linkedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades están enlazadas
-linkedR (Reg _ links _) city1 city2
+linkedR (Reg citys links _) city1 city2
+    | notElem city1 citys || notElem city2 citys = error "Las ciudades no estan en la region."
     | length[link | link <- links, linksL city1 city2 link] > 0 = True 
     | otherwise = False
 --{ Dice si existe un enlace en la región que entre estas dos ciudades }
@@ -61,18 +80,34 @@ delayR (Reg _ _ tunels) city1 city2 = delayT(head[tunel | tunel <- tunels, conne
 -- dadas dos ciudades conectadas, indica la demora
 --{ Hay decisiones que tomar! }
 
-getTunel :: [Tunel] -> City -> City -> Tunel
-getTunel tunels city1 city2 =  [tunel | tunel <- tunels, connectsT city1 city2 tunel] !! 0
+--getTunel :: [Tunel] -> City -> City -> Tunel
+--getTunel tunels city1 city2 =  [tunel | tunel <- tunels, connectsT city1 city2 tunel] !! 0
 
-linksOfTunel :: Tunel -> [Link] -> [Link]
-linksOfTunel tunel links = [link | link <- links, usesT link tunel] 
+--linksOfTunel :: Tunel -> [Link] -> [Link]
+--linksOfTunel tunel links = [link | link <- links, usesT link tunel] 
 
-capacityUsedPerLink :: [Link] -> [Tunel] -> [Int]
-capacityUsedPerLink links tunels = [1| link <- links, tunel <- tunels, usesT link tunel]
---foldr(\link acc -> usesT  ) 0 links
+--getTunelAndLinks :: [Tunel] -> City -> City -> [Link] -> [Link]
+--getTunelAndLinks tunels city1 city2  = linksOfTunel (getTunel tunels city1 city2) 
+
+--capacityUsedPerLink :: [Link] -> [Tunel] -> Int
+--capacityUsedPerLink links tunels = sum [1| link <- links, tunel <- tunels, usesT link tunel]
+--foldr(\link acc -> foldr (\tunel fold) 0 tunels ) 0 links
+
+--totalCapacityOfTunel :: [Tunel] -> City -> City -> [Link] -> Int
+--totalCapacityOfTunel tunels city1 city2 links = foldr (\link capacityAcc -> capacityL link + capacityAcc) 0 (getTunelAndLinks tunels city1 city2 links)
+
+--availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
+--availableCapacityForR (Reg cities links tunels) city1 city2 = totalCapacityOfTunel tunels city1 city2 links - capacityUsedPerLink (getTunelAndLinks tunels city1 city2 links) tunels
+
+getLink :: City -> City -> [Link] -> Link
+getLink city1 city2 links = [link | link <- links, linksL city1 city2 link] !! 0
+
+capacityUsed :: Link -> [Tunel] -> Int
+capacityUsed link = foldr (\tunel acc -> if usesT link tunel then acc + 1 else acc) 0  
 
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
-availableCapacityForR (Reg cities links tunels) city1 city2 = foldr (\link capacityAcc -> capacityL link + capacityAcc) 0 (linksOfTunel (getTunel tunels city1 city2) links)  
+availableCapacityForR (Reg cities links tunels) city1 city2 = capacityL (getLink city1 city2 links) - capacityUsed (getLink city1 city2 links) tunels
+
 
 -- { Teniendo en cuenta la capacidad que los túneles existentes ocupan }
 -- { La conexión sólo se da a través de un túnel, y sólo se conectan los extremos }
@@ -112,9 +147,7 @@ tunel1 = newT [link1, link2]
 tunel2 = newT [link1, link2, link3]
 
 tunel3 = newT [link2, link3]
-
-region1 = newR
-
+region1 = Reg [ciudad1, ciudad2, ciudad3, ciudad4, ciudad5] [link1, link2, link3] [tunel1]
 
 t :: [Bool]
 t = [
