@@ -64,11 +64,16 @@ delayR (Reg _ _ tunels) city1 city2 = delayT(head[tunel | tunel <- tunels, conne
 getTunel :: [Tunel] -> City -> City -> Tunel
 getTunel tunels city1 city2 =  [tunel | tunel <- tunels, connectsT city1 city2 tunel] !! 0
 
-linkOfTunel :: Tunel -> [Link] -> [Link]
-linkOfTunel tunel links = [link | link <- links, usesT link tunel] 
+linksOfTunel :: Tunel -> [Link] -> [Link]
+linksOfTunel tunel links = [link | link <- links, usesT link tunel] 
+
+capacityUsedPerLink :: [Link] -> [Tunel] -> [Int]
+capacityUsedPerLink links tunels = [1| link <- links, tunel <- tunels, usesT link tunel]
+--foldr(\link acc -> usesT  ) 0 links
 
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
-availableCapacityForR (Reg cities links tunels) city1 city2 = foldr (\link capacityAcc -> capacityL link + capacityAcc) 0 (linkOfTunel (getTunel tunels city1 city2) links)  
+availableCapacityForR (Reg cities links tunels) city1 city2 = foldr (\link capacityAcc -> capacityL link + capacityAcc) 0 (linksOfTunel (getTunel tunels city1 city2) links)  
+
 -- { Teniendo en cuenta la capacidad que los túneles existentes ocupan }
 -- { La conexión sólo se da a través de un túnel, y sólo se conectan los extremos }
 -- { Cada vez que se refiere a 'conectadas', necesariamente se refiere a un túnel }

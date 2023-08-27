@@ -1,4 +1,4 @@
-module Point (Point , newP,distP, difP) where
+module Point (Point , newP, difP) where
 
 data Point = Poi Int Int deriving (Eq, Show) -- Poi es una funcion que recibe 2 Int.
 
@@ -13,6 +13,8 @@ difP (Poi x1 y1) (Poi x2 y2)
 
 distP :: Point -> Float -- Caclula la norma de un punto.
 distP (Poi x3 y3) = sqrt (fromIntegral (x3 ^ 2 + y3 ^ 2))
+
+
 
 t :: [Bool]
 t =
