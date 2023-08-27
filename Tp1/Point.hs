@@ -13,19 +13,3 @@ difP (Poi x1 y1) (Poi x2 y2)
 
 distP :: Point -> Float -- Caclula la norma de un punto.
 distP (Poi x3 y3) = sqrt (fromIntegral (x3 ^ 2 + y3 ^ 2))
-
-
-
-t :: [Bool]
-t =
-  [ distP (Poi (-3) 0) == 3,
-    difP (Poi 0 2) (Poi 0 (-3)) == 5,
-    difP (Poi 0 (-2)) (Poi 0 3) == 5,
-    difP (Poi 0 (-2)) (Poi 0 (-3)) == 1,
-    difP (Poi 0 2) (Poi 0 3) == 1,
-    difP (Poi 2 0) (Poi 3 0) == 1,
-    difP (Poi 2 0) (Poi (-3) 0) == 5,
-    difP (Poi (-2) 0) (Poi 3 0) == 5,
-    difP (Poi (-2) 0) (Poi (-3) 0) == 1,
-    True
-  ]
