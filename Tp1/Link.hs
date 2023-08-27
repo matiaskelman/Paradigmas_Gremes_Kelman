@@ -1,5 +1,6 @@
--- { Un Link es el medio físico que une dos ciudades. }
-module Link (Link , newL, linksL, connectsL, capacityL, delayL) where
+
+module Link (Link , newL, linksL, connectsL, capacityL, delayL) 
+    where
 
 import City (City , distanceC, nameC, newC)
 import Point (Point , difP, newP)
@@ -20,15 +21,9 @@ linksL city1 city2 (Lin city3 city4 _)
  | (city1 == city3 && city2 == city4) || (city1 == city4 && city2 == city3) = True
  | otherwise = False
 
--- { Un Link es naturalmente bidireccional, Si las ciudades A y B están enlazadas por un link li, linksL A B li y linksL B A li es true }
-
 capacityL :: Link -> Int
 capacityL (Lin _ _ quality) = capacityQ quality
 
 delayL :: Link -> Float -- la demora que sufre una conexión en este canal
 delayL (Lin _ _ quality) = delayQ quality
 
--- { esta demora es en unidades de tiempo }
--- { La demora de un link es en tiempo, segundos, milisegundos, etc.
--- La demora de la calidad de un enlace es en velocidad, por ejemplo km/segundo.
--- No importan las unidades, sí la relación entre los valores }

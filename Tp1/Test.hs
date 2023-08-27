@@ -1,13 +1,14 @@
 module Test () where
 
+import Point (Point, difP, newP)
 import City (City, distanceC, nameC, newC)
+import Quality (Quality, capacityQ, delayQ, newQ)
+import Link (Link, capacityL, connectsL, delayL, linksL, newL)
+import Tunel (Tunel, connectsT, delayT, newT, usesT)
+import Region ( Region, newR, foundR, linkR, tunelR, connectedR, linkedR, delayR, availableCapacityForR) 
 import Data.Text.Array (new)
 import Distribution.Simple.Test (test)
-import Link (Link, capacityL, connectsL, delayL, linksL, newL)
-import Point (Point, difP, newP)
-import Quality (Quality, capacityQ, delayQ, newQ)
---import Region (Region, availableCapacityForR, connectedR, delayR, foundR, linkR, linkedR, newR, tunelR)
-import Tunel (Tunel, connectsT, delayT, newT, usesT)
+
 
 t :: [[Bool]]
 t = [testCity, testLink, testPoint, testQuality, testTunel]
@@ -23,6 +24,8 @@ punto2 :: Point
 punto2 = newP 0 1
 punto3 :: Point
 punto3 = newP 2 0
+punto4 :: Point
+punto4 = newP 3 0
 testPoint :: [Bool]
 testPoint =
   [ difP punto1 punto2 == sqrt 2,
@@ -35,6 +38,8 @@ ciudad2 :: City
 ciudad2 = newC "Mati" punto2
 ciudad3 :: City
 ciudad3 = newC "Emilio Capo!" punto3
+ciudad4 :: City
+ciudad4 = newC "Ricardito" punto4
 testCity :: [Bool]
 testCity =
   [ nameC ciudad1 == "Igna",
@@ -61,6 +66,8 @@ link2 :: Link
 link2 = newL ciudad2 ciudad3 calidad2
 link3 :: Link
 link3 = newL ciudad3 ciudad1 calidad2
+link4 :: Link
+link4 = newL ciudad3 ciudad4 calidad1
 testLink :: [Bool]
 testLink =
   [ newL ciudad1 ciudad2 calidad1 == link1,
@@ -75,6 +82,8 @@ tunel1 :: Tunel
 tunel1 = newT [link1, link2]
 tunel2 :: Tunel
 tunel2 = newT [link3, link1]
+tunel3 :: Tunel
+tunel3 = newT [link1,link2,link4]
 testTunel :: [Bool]
 testTunel =
   [ connectsT ciudad1 ciudad3 tunel1,
@@ -82,5 +91,20 @@ testTunel =
     connectsT ciudad1 ciudad2 tunel1, -- False
     delayT tunel1 == 3.0,
     usesT link1 tunel1,
+    True
+  ]
+region1 :: Region
+region1 = tunelR (linkR (linkR (foundR (foundR ( foundR newR ciudad1)ciudad2)ciudad3)ciudad1 ciudad2 calidad1)ciudad2 ciudad3 calidad2) [ciudad1,ciudad2,ciudad3]
+testRegion :: [Bool]
+testRegion =
+  [
+    connectedR region1 ciudad1 ciudad3,
+    not(connectedR region1 ciudad2 ciudad3),
+    linkedR region1 ciudad1 ciudad2,
+    linkedR region1 ciudad2 ciudad3,
+    not(linkedR region1 ciudad1 ciudad3),
+    delayR region1 ciudad1 ciudad3 == 3.0,
+    availableCapacityForR region1 ciudad1 ciudad2 == 0,
+    availableCapacityForR region1 ciudad2 ciudad3 == 19,
     True
   ]
