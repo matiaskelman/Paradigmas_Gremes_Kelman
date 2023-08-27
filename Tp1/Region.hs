@@ -8,6 +8,7 @@ import Link (Link , capacityL, connectsL, delayL, linksL, newL)
 import Tunel (Tunel, newT, connectsT, delayT, usesT)
 import Data.List (elemIndex)
 import Data.Text.Array (new)
+import GHC.Exts.Heap (GenClosure(link))
 -- import qualified Data.ByteString as 1
 
 data Region = Reg [City] [Link] [Tunel] deriving (Show)
@@ -63,8 +64,11 @@ delayR (Reg _ _ tunels) city1 city2 = delayT(head[tunel | tunel <- tunels, conne
 getTunel :: [Tunel] -> City -> City -> Tunel
 getTunel tunels city1 city2 =  [tunel | tunel <- tunels, connectsT city1 city2 tunel] !! 0
 
+linkOfTunel :: Tunel -> [Link] -> [Link]
+linkOfTunel tunel links = [link | link <- links, usesT link tunel] 
+
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
-availableCapacityForR (Reg cities links tunels) city1 city2 = foldr (\each fold -> fold ) 0 [tunels]
+availableCapacityForR (Reg cities links tunels) city1 city2 = foldr (\link capacityAcc -> capacityL link + capacityAcc) 0 (linkOfTunel (getTunel tunels city1 city2) links)  
 -- { Teniendo en cuenta la capacidad que los túneles existentes ocupan }
 -- { La conexión sólo se da a través de un túnel, y sólo se conectan los extremos }
 -- { Cada vez que se refiere a 'conectadas', necesariamente se refiere a un túnel }
