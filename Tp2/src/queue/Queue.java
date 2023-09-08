@@ -6,17 +6,20 @@ import java.util.List;
 public class Queue {
 	
 	public List<Object> queues = new ArrayList<>();
+	
+	
 
-  public boolean isEmpty() { return queues.isEmpty(); }
+  public boolean isEmpty() { return (this.queues.isEmpty()); }
 
+  
 	public Queue add( Object  cargo ) {
 		queues.add( cargo );
 		return this;
 	}
 
 	public Object take() {
-		queues.remove(0);
-		return null;
+		queues.clear();
+		return this;
 	}
 
 	public Object head() {
@@ -28,5 +31,4 @@ public class Queue {
 
 		return 0;
 	}
-
 }
