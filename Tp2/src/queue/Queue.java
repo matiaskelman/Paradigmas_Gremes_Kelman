@@ -18,8 +18,15 @@ public class Queue {
 	}
 
 	public Object take() {
-		Object lastElem = head();
+		Object lastElem = "";
+		try {
+		lastElem = head();
 		this.queues.remove(0);
+		}
+		catch( Exception e ) {
+				e.printStackTrace();
+	
+		}
 		return lastElem;
 	}
 
