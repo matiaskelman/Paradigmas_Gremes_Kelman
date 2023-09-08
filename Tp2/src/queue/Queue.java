@@ -18,17 +18,17 @@ public class Queue {
 	}
 
 	public Object take() {
-		queues.clear();
-		return this;
+		Object lastElem = head();
+		this.queues.remove(0);
+		return lastElem;
 	}
 
 	public Object head() {
-
-    return null;
+		
+    return queues.get(0);
 	}
 
 	public int size() {
-
-		return 0;
+	return queues.size();	
 	}
 }
