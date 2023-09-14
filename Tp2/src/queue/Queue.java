@@ -3,9 +3,10 @@ package queue;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Queue {
 	
-	public List<Object> queues = new ArrayList<>();
+	public List<Contenedor> queues = new ArrayList<>();
 	
 	
 
@@ -38,4 +39,24 @@ public class Queue {
 	public int size() {
 	return queues.size();	
 	}
+}
+abstract class Contenedor {
+	
+	public Object take() {
+		
+	}
+}
+abstract class ContenedorVacio extends Contenedor {
+	
+	public Object take() {return "this list is empty";}
+	
+	public Object head() {return "this list is empty";}
+	
+}
+abstract class ContenedorLleno extends Contenedor {
+	
+	public Object head() {
+		
+		}
+	
 }
