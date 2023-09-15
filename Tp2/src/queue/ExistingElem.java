@@ -1,6 +1,13 @@
 package queue;
 
-public class ContenedorLleno extends Queue {
+public class ExistingElem extends Queue {
+	
+	public Object content;
+	
+	ExistingElem(Object newContent) {
+		
+		this.content = newContent;
+	}
 	
 	public Object head() {
 		
