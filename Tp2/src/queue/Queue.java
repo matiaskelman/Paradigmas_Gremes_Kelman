@@ -6,18 +6,18 @@ import java.util.List;
 
 public class Queue extends Contenedor {
 	
-	public List<Object> objects = new ArrayList<>();
+	public List<Contenedor> objects = new ArrayList<>();
 	Queue() {
 		//queues.add(new ContenedorVacio());
 		};
 	
 	
 
-  public boolean isEmpty() { return (this.objects.isEmpty()); }
-
+  public boolean isEmpty() { return this.objects.get(objects.size()-1).isEmpty();}
+// 							 return objects.getIndex(objects.length()-1).isEmpty();
   
-	public Queue add( Object  cargo ) {
-		objects.add( cargo );
+	public Queue add( Object cargo ) {
+		objects.add(new ExistingElem(cargo) );
 		return this;
 	};
 
