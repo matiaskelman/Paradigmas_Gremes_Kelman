@@ -1,6 +1,6 @@
 package queue;
 
-public class ContenedorVacio extends Queue {
+public class NullElem extends Queue {
 	
 	
 	@Override
