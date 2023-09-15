@@ -4,59 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Queue {
+public class Queue extends Contenedor {
 	
-	public List<Contenedor> queues = new ArrayList<>();
+	public List<Object> objects = new ArrayList<>();
+	Queue() {
+		//queues.add(new ContenedorVacio());
+		};
 	
 	
 
-  public boolean isEmpty() { return (this.queues.isEmpty()); }
+  public boolean isEmpty() { return (this.objects.isEmpty()); }
 
   
 	public Queue add( Object  cargo ) {
-		queues.add( cargo );
+		objects.add( cargo );
 		return this;
-	}
+	};
 
 	public Object take() {
 		Object lastElem = "";
 		try {
 		lastElem = head();
-		this.queues.remove(0);
+		this.objects.remove(0);
 		}
 		catch( Exception e ) {
 				e.printStackTrace();
 	
 		}
 		return lastElem;
-	}
+	};
 
 	public Object head() {
 		
-    return queues.get(0);
-	}
+    return objects.get(0);
+	};
 
 	public int size() {
-	return queues.size();	
-	}
-}
-abstract class Contenedor {
-	
-	public Object take() {
-		
-	}
-}
-abstract class ContenedorVacio extends Contenedor {
-	
-	public Object take() {return "this list is empty";}
-	
-	public Object head() {return "this list is empty";}
-	
-}
-abstract class ContenedorLleno extends Contenedor {
-	
-	public Object head() {
-		
-		}
-	
+	return objects.size();	
+	};
 }
