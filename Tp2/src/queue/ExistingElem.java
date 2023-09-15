@@ -1,6 +1,6 @@
 package queue;
 
-public class ExistingElem extends Queue {
+public class ExistingElem extends Contenedor {
 	
 	public Object content;
 	
