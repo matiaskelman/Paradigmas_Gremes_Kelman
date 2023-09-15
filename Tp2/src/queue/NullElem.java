@@ -1,6 +1,6 @@
 package queue;
 
-public class NullElem extends Queue {
+public class NullElem extends Contenedor {
 	
 	
 	@Override
@@ -10,6 +10,6 @@ public class NullElem extends Queue {
 	public Object head() {return "this list is empty";}
 
 	@Override
-	public boolean isEmpty() { return true; }
+	public boolean isEmpty() { return true;}
 	
 }
