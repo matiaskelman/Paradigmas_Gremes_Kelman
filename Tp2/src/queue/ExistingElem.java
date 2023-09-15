@@ -2,8 +2,6 @@ package queue;
 
 public class ExistingElem extends Contenedor {
 	
-	public Object content;
-	
 	ExistingElem(Object newContent) {
 		
 		this.content = newContent;

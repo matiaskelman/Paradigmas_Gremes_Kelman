@@ -6,44 +6,36 @@ import java.util.List;
 
 public class Queue extends Contenedor {
 	
-	public List<Contenedor> objects;// = new ArrayList<>(List.of(createNullElem()));
+	public List<Contenedor> queue;
 	
-	//objects.add(new NullElem());
 	Queue() {
-		objects = new ArrayList<Contenedor>();
-		add(new NullElem());
+		queue = new ArrayList<Contenedor>();
+		this.queue.add(new NullElem());
 	}
 	
 	
 
-  public boolean isEmpty() { return this.objects.get(0).isEmpty();}//objects.get((objects.size())-1).isEmpty();}
-// 							 return objects.getIndex(objects.length()-1).isEmpty();
-  
+	public boolean isEmpty() 
+	{ return this.queue.get(this.getQueueSize() -1).isEmpty();}
+	
+	
 	public Queue add( Object cargo ) {
-		objects.add(new ExistingElem(cargo) );
+		this.queue.add(1, new ExistingElem(cargo) );
+		//System.out.print(this.queue);
 		return this;
 	};
-
 	public Object take() {
-		Object lastElem = "";
-		try {
-		lastElem = head();
-		this.objects.remove(0);
-		}
-		catch( Exception e ) {
-				e.printStackTrace();
-	
-		}
-		return lastElem;
+		this.queue.remove(this.size()-1);
+		return this.queue;
 	};
 
 	public Object head() {
-		
-    return objects.get(0);
+	//System.out.print(this.queue.get(1).content);
+    return this.queue.get(this.size()-1).content;
 	};
 
 	public int size() {
-	return objects.size();	
+	return queue.size();	
 	};
 	
 	public Contenedor createNullElem() {
