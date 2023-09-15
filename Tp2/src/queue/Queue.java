@@ -6,14 +6,17 @@ import java.util.List;
 
 public class Queue extends Contenedor {
 	
-	public List<Contenedor> objects = new ArrayList<>();
+	public List<Contenedor> objects;// = new ArrayList<>(List.of(createNullElem()));
+	
+	//objects.add(new NullElem());
 	Queue() {
-		//queues.add(new ContenedorVacio());
-		};
+		objects = new ArrayList<Contenedor>();
+		add(new NullElem());
+	}
 	
 	
 
-  public boolean isEmpty() { return this.objects.get(objects.size()-1).isEmpty();}
+  public boolean isEmpty() { return this.objects.get(0).isEmpty();}//objects.get((objects.size())-1).isEmpty();}
 // 							 return objects.getIndex(objects.length()-1).isEmpty();
   
 	public Queue add( Object cargo ) {
@@ -42,4 +45,8 @@ public class Queue extends Contenedor {
 	public int size() {
 	return objects.size();	
 	};
-}
+	
+	public Contenedor createNullElem() {
+		return new NullElem();
+	}
+ }
