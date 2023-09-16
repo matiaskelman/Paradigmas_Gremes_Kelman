@@ -1,23 +1,20 @@
 package queue;
 
-public class ExistingElem extends Queue {
+import java.util.List;
+
+public class ExistingElem extends Element {
 	
-	ExistingElem(Object newContent) {
-		
-		this.content = newContent;
-	}
+	ExistingElem(Object newContent) {this.content = newContent;} 
 	
-	public Object head() {
-		
-		return this.content;
-		}
-	public Object take() {
-		return this.content;
-		
-	}
 	@Override
-	public boolean isEmpty() {
-		
-		return false;
+	public Object head() {return this.content;}
+	
+	@Override
+	public Object take(List<Element> list) {
+		list.remove(list.size()-1);
+		return this.content;
 	}
+	
+	@Override
+	public boolean isEmpty() {return false;}
 }
