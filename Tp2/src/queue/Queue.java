@@ -25,9 +25,12 @@ public class Queue extends Contenedor {
 		return this;
 	};
 	public Object take() {
-		Contenedor removedItem = this.queue.get(this.size());
-		this.queue.remove(this.size());
-		return removedItem.content;
+		return this.queue.get(this.size()).take();
+		
+		
+//		Contenedor removedItem = this.queue.get(this.size());
+//		this.queue.remove(this.size());
+//		return removedItem.content;
 	};
 
 	public Object head() {
