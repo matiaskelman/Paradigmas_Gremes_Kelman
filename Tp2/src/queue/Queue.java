@@ -16,7 +16,7 @@ public class Queue extends Contenedor {
 	
 
 	public boolean isEmpty() 
-	{ return this.queue.get(this.getQueueSize() -1).isEmpty();}
+	{ return this.queue.get(this.size()).isEmpty();}
 	
 	
 	public Queue add( Object cargo ) {
@@ -25,20 +25,18 @@ public class Queue extends Contenedor {
 		return this;
 	};
 	public Object take() {
-		this.queue.remove(this.size()-1);
-		return this.queue;
+		Contenedor removedItem = this.queue.get(this.size());
+		this.queue.remove(this.size());
+		return removedItem.content;
 	};
 
 	public Object head() {
 	//System.out.print(this.queue.get(1).content);
-    return this.queue.get(this.size()-1).content;
+    return this.queue.get(this.size()).content;
 	};
 
 	public int size() {
-	return queue.size();	
+	return queue.size()-1;	
 	};
 	
-	public Contenedor createNullElem() {
-		return new NullElem();
-	}
  }
