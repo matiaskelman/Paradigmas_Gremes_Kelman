@@ -4,10 +4,10 @@ public class NullElem extends Contenedor {
 	
 	
 	@Override
-	public Object take() {return "this list is empty";}
+	public Object take() {throw new RuntimeException("Queue is empty");}
 	
 	@Override
-	public Object head() {return "this list is empty";}
+	public Object head() {throw new RuntimeException("Queue is empty");}
 
 	@Override
 	public boolean isEmpty() { return true;}
