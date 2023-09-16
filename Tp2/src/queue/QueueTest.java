@@ -9,26 +9,29 @@ import org.junit.jupiter.api.Test;
 public class QueueTest {
 
   @Test public void test01QueueShouldBeEmptyWhenCreated() {
-    assertTrue( new Queue().isEmpty() );
+    assertTrue( createQueue().isEmpty() );
   }
 
+
   @Test public void test02AddElementsToTheQueue() {
-    assertFalse( new Queue().add( "Something" ).isEmpty() );
+    assertFalse( createQueueWithAnElemSomething().isEmpty() );
   }
 
   @Test public void test03AddedElementsIsAtHead() {
-    assertEquals( "Something", new Queue().add( "Something" ).head() );
+    assertEquals( "Something", createQueueWithAnElemSomething().head() );
   }
 
+
+
   @Test public void test04TakeRemovesElementsFromTheQueue() {
-    Queue queue = new Queue().add( "Something" );
+    Queue queue = createQueueWithAnElemSomething();
     queue.take();
     
     assertTrue( queue.isEmpty() );
   }
 
   @Test public void test05TakeReturnsLastAddedObject() {
-    Queue queue = new Queue();
+    Queue queue = createQueue();
     String addedObject = "Something";
     queue.add( addedObject );
     
@@ -36,7 +39,7 @@ public class QueueTest {
   }
 
   @Test public void test06QueueBehavesFIFO() {
-    Queue queue = new Queue();
+    Queue queue = createQueue();
     String firstAddedObject = "First";
     String secondAddedObject = "Second";
 
@@ -49,7 +52,7 @@ public class QueueTest {
   }
 
   @Test public void test07HeadReturnsFirstAddedObject() {
-    Queue queue = new Queue();
+    Queue queue = createQueue();
     String firstAddedObject = "First";
 
     queue.add( firstAddedObject );
@@ -59,19 +62,17 @@ public class QueueTest {
   }
 
   @Test public void test08HeadDoesNotRemoveObjectFromQueue() {
-    Queue queue = new Queue();
-    queue.add( "Something" );
-    assertEquals( 1, queue.size() );
-    queue.head();
-    assertEquals( 1, queue.size() );
+    assertEquals( 1, createQueueWithAnElemSomething().size() );
+    createQueueWithAnElemSomething().head();
+    assertEquals( 1, createQueueWithAnElemSomething().size() );
   } 
 
 @Test public void test09SizeRepresentsObjectInTheQueue() {
-    assertEquals( 2, new Queue().add( "First" ).add( "Second" ).size() );
+    assertEquals( 2, createQueue().add( "First" ).add( "Second" ).size() );
   }
 
   @Test public void test10CanNotTakeWhenThereAreNoObjectsInTheQueue() {
-    Queue queue = new Queue();
+    Queue queue = createQueue();
     try {
       queue.take();
       fail( "Expected Error was not thrown." );
@@ -81,8 +82,7 @@ public class QueueTest {
   }
 
   @Test public void test09CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
-    Queue queue = new Queue();
-    queue.add( "Something" );
+    Queue queue = createQueueWithAnElemSomething();
     queue.take();
     try {
       queue.take();
@@ -93,7 +93,7 @@ public class QueueTest {
   }
 
   @Test public void test10CanNotHeadWhenThereAreNoObjectsInTheQueue() {
-    Queue queue = new Queue();
+    Queue queue = createQueue();
     try {
       queue.head();
       fail( "Expected Error was not thrown." );
@@ -101,4 +101,8 @@ public class QueueTest {
       assertTrue( e.getMessage().equals( "Queue is empty" ) );
     }
   }
-}
+  
+  private Queue createQueue() {return new Queue();}
+  
+  private Queue createQueueWithAnElemSomething() {return createQueue().add( "Something" );}
+} 
