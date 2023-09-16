@@ -12,9 +12,6 @@ public class ExistingElem extends Queue {
 		return null;
 		}
 	public Object take() {
-		System.out.print(this.queue);
-		this.queue.remove(this.size());
-		System.out.print(this.queue);
 		return this.content;
 		
 	}
