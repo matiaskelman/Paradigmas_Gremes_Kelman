@@ -1,15 +1,18 @@
 package queue;
 
-public class NullElem extends Contenedor {
+import java.util.List;
+
+public class NullElem extends Element {
 	
 	Error errorMessage = new Error("Queue is empty");
+	
 	@Override
-	public Object take() {throw errorMessage;}
+	public Object take(List<Element> list) {throw errorMessage;}
 	
 	@Override
 	public Object head() {throw errorMessage;}
 
 	@Override
-	public boolean isEmpty() { return true;}
+	public boolean isEmpty() {return true;}
 	
 }
