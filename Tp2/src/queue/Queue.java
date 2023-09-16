@@ -4,44 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Queue extends Contenedor {
+public class Queue {
 	
-	public List<Contenedor> queue;
+	public List<Element> elements;
 	
 	Queue() {
-		queue = new ArrayList<Contenedor>();
-		this.queue.add(new NullElem());
+		elements = new ArrayList<Element>();
+		this.elements.add(new NullElem());
 	}
-	
-	
 
-	public boolean isEmpty() 
-	{ return this.queue.get(this.size()).isEmpty();}
-	
+	public boolean isEmpty() {return this.elements.get(this.size()).isEmpty();}
 	
 	public Queue add( Object cargo ) {
-		this.queue.add(1, new ExistingElem(cargo) );
-		//System.out.print(this.queue);
+		this.elements.add(1, new ExistingElem(cargo) );
 		return this;
-	};
-	public Object take() {
-		Object objeto = this.queue.get(this.size()).take();
-		this.queue.remove(this.size());
-		return objeto;
-		
-		
-//		Contenedor removedItem = this.queue.get(this.size());
-//		this.queue.remove(this.size());
-//		return removedItem.content;
-	};
+	}
+	
+	public Object take() {return this.elements.get(this.size()).take(this.elements);}
 
-	public Object head() {
-	//System.out.print(this.queue.get(1).content);
-    return this.queue.get(this.size()).head();
-	};
+	public Object head() {return this.elements.get(this.size()).head();}
 
-	public int size() {
-	return queue.size()-1;	
-	};
+	public int size() {return elements.size()-1;}
 	
  }
