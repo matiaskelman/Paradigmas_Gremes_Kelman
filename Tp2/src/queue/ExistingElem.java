@@ -1,6 +1,6 @@
 package queue;
 
-public class ExistingElem extends Contenedor {
+public class ExistingElem extends Queue {
 	
 	ExistingElem(Object newContent) {
 		
@@ -12,8 +12,10 @@ public class ExistingElem extends Contenedor {
 		return null;
 		}
 	public Object take() {
-		
-		return null;
+		System.out.print(this.queue);
+		this.queue.remove(this.size());
+		System.out.print(this.queue);
+		return this.content;
 		
 	}
 	@Override
