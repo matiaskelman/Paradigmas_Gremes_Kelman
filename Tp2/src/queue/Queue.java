@@ -37,7 +37,7 @@ public class Queue extends Contenedor {
 
 	public Object head() {
 	//System.out.print(this.queue.get(1).content);
-    return this.queue.get(this.size()).content;
+    return this.queue.get(this.size()).head();
 	};
 
 	public int size() {

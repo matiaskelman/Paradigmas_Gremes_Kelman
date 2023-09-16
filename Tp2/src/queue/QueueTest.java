@@ -78,7 +78,7 @@ public class QueueTest {
     } catch (Error e) {
       assertTrue( e.getMessage().equals( "Queue is empty" ) );
     }
-  }}/*
+  }
 
   @Test public void test09CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
     Queue queue = new Queue();
@@ -101,4 +101,4 @@ public class QueueTest {
       assertTrue( e.getMessage().equals( "Queue is empty" ) );
     }
   }
-} */
+}

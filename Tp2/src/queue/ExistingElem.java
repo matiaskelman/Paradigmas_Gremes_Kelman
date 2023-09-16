@@ -9,7 +9,7 @@ public class ExistingElem extends Queue {
 	
 	public Object head() {
 		
-		return null;
+		return this.content;
 		}
 	public Object take() {
 		return this.content;
