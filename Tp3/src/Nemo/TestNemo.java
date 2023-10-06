@@ -70,7 +70,7 @@ public class TestNemo {
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("r");
-		assertTrue(sub.getDireccion() == 90);
+		assertTrue(sub.getDireccion() == -90);
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class TestNemo {
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("l");
-		assertTrue(sub.getDireccion() == -90);
+		assertTrue(sub.getDireccion() == 90);
 	}
 
 	public void testRotar() {
@@ -96,8 +96,38 @@ public class TestNemo {
 		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("l");
-		assertTrue(sub.getDireccion() == -90);
+		sub.accion("f");
+		assertTrue(sub.getCoordenadas().getX() == 2);
+	}
+	@Test
+	public void testAvanzar02() {
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		float direccionInicial = 0;
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.accion("d");
+		sub.accion("r");
+		sub.accion("f");
+		assertTrue(sub.getCoordenadas().getY() == 1);
+	}
+	
+	@Test
+	public void testAvanzar03() {
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		float direccionInicial = 0;
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.accion("d");
+		sub.accion("r");
+		sub.accion("r");
+		sub.accion("f");
+		assertTrue(sub.getCoordenadas().getX() == 0);
+	}
+	@Test
+	public void testMultiplesComandos() {
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		float direccionInicial = 0;
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.accion("drrf");
+		assertTrue(sub.getCoordenadas().getX() == 0);
 	}
 
 } // Test
