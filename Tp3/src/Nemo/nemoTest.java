@@ -99,6 +99,7 @@ public class nemoTest {
 		sub.accion("f");
 		assertTrue(sub.getCoordenadas().getX() == 2);
 	}
+
 	@Test
 	public void test11Avanzar02() {
 		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
@@ -109,7 +110,7 @@ public class nemoTest {
 		sub.accion("f");
 		assertTrue(sub.getCoordenadas().getY() == 1);
 	}
-	
+
 	@Test
 	public void test12Avanzar03() {
 		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
@@ -121,6 +122,7 @@ public class nemoTest {
 		sub.accion("f");
 		assertTrue(sub.getCoordenadas().getX() == 0);
 	}
+
 	@Test
 	public void test13MultiplesComandos() {
 		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);

@@ -18,18 +18,20 @@ public class Coordenadas {
 
 	public void ascend() {
 		if (this.z >= 0) {
-		
+
 		} else {
 			this.z = this.z + 1;
 		}
 	}
+
 	public void moverX(int mover) {
 		this.x = this.x + mover;
 	}
+
 	public void moverY(int mover) {
 		this.y = this.y + mover;
 	}
-	
+
 	public int getX() {
 		return x;
 	}

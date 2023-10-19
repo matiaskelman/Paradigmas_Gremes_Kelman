@@ -13,40 +13,41 @@ public class Sub {
 	}
 
 	public void accion(String comandos) {
-		for (int i=0;i<comandos.length();i++ ) {
-		if (comandos.charAt(i) == 'd') {
-			this.coordenadas.descend();
-		}
-		if (comandos.charAt(i) == 'u') {
-			this.coordenadas.ascend();
-		}
-		if (comandos.charAt(i) == 'm') {
-			if (this.coordenadas.getZ() < -1) {
-				setExploto(true);
+		comandos.chars().forEach(comando -> 
+								commandFor(char comando) {
+									
+								});
+		for (int i = 0; i < comandos.length(); i++) {
+			if (comandos.charAt(i) == 'd') {
+				this.coordenadas.descend();
+			}
+			if (comandos.charAt(i) == 'u') {
+				this.coordenadas.ascend();
+			}
+			if (comandos.charAt(i) == 'm') {
+				if (this.coordenadas.getZ() < -1) {
+					setExploto(true);
+				}
+			}
+			if (comandos.charAt(i) == 'r') {
+				setDireccion(this.direccion - 90);
+			}
+			if (comandos.charAt(i) == 'l') {
+				setDireccion(this.direccion + 90);
+			}
+			if (comandos.charAt(i) == 'f') {
+				if (Math.cos(Math.toRadians(direccion)) == 1) {
+					this.coordenadas.moverX(1);
+				} else if (Math.cos(Math.toRadians(direccion)) == -1) {
+					this.coordenadas.moverX(-1);
+				} else if (Math.sin(Math.toRadians(direccion)) == 1) {
+					this.coordenadas.moverY(1);
+				} else {
+					this.coordenadas.moverY(-1);
+				}
 			}
 		}
-		if (comandos.charAt(i) == 'r') {
-			setDireccion(this.direccion -90);
-		}
-		if (comandos.charAt(i) == 'l') {
-			setDireccion(this.direccion +90);
-		}
-		if (comandos.charAt(i) == 'f') {
-			if (Math.cos(Math.toRadians(direccion)) == 1) {
-				this.coordenadas.moverX(1);
-			}
-			else if (Math.cos(Math.toRadians(direccion)) == -1) {
-				this.coordenadas.moverX(-1);
-			}
-			else if (Math.sin(Math.toRadians(direccion)) == 1) {
-				this.coordenadas.moverY(1);
-			}
-			else {
-				this.coordenadas.moverY(-1);
-			}
-			} }
-		}
-	
+	}
 
 	public double getDireccion() {
 		return this.direccion;
