@@ -6,17 +6,15 @@ public class Sub {
 	private boolean exploto;
 
 	public Sub(Coordenadas coordenadasIniciales, double direccionInicial) {
-		// TODO Auto-generated constructor stub
 		coordenadas = coordenadasIniciales;
 		direccion = direccionInicial;
 		setExploto(false);
 	}
 
 	public void accion(String comandos) {
-		comandos.chars().forEach(comando -> 
-								commandFor(char comando) {
-									
-								});
+		comandos.chars().forEach(comando ->
+								accionForSingleCommand((char) comando)
+		);
 		for (int i = 0; i < comandos.length(); i++) {
 			if (comandos.charAt(i) == 'd') {
 				this.coordenadas.descend();
@@ -49,6 +47,9 @@ public class Sub {
 		}
 	}
 
+	public void accionForSingleCommand(char comando) {
+		Command.commandFor(comando).move(this);
+	}
 	public double getDireccion() {
 		return this.direccion;
 	}
