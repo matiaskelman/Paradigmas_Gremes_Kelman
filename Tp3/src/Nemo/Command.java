@@ -14,7 +14,7 @@ abstract class Command {
 		System.out.print(command);
         return (Command) availableCommands
 				.stream()
-				.filter(c -> command == c.key);
+				.filter(c -> command == c.key).findFirst().get();
 
 	}
 

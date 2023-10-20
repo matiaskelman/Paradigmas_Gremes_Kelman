@@ -128,8 +128,8 @@ public class nemoTest {
 		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("drrf");
-		assertTrue(sub.getCoordenadas().getX() == 0);
+		sub.accion("ddm");
+		assertTrue(sub.isExploto() == true);
 	}
 
 } // Test
