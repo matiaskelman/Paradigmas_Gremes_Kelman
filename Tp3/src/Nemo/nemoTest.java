@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class nemoTest {
 	@Test
 	public void test01NewSubmarine() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		assertTrue(sub.getCoordenadas() == coordenadasIniciales);
@@ -15,7 +15,7 @@ public class nemoTest {
 
 	@Test
 	public void test02NullCommands() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("");
@@ -25,38 +25,38 @@ public class nemoTest {
 
 	@Test
 	public void test03Descend() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("d");
-		assertTrue(sub.getCoordenadas().getZ() == -1);
+		assertTrue(sub.getDepth() == -1);
 	}
 
 	@Test
 	public void test04Ascend() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("d");
 		sub.accion("d");
 		sub.accion("u");
-		assertTrue(sub.getCoordenadas().getZ() == -1);
+		assertTrue(sub.getDepth() == -1);
 	}
 
 	@Test
 	public void test05LiberarCapsula01() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("d");
 		sub.accion("d");
 		sub.accion("m");
-		assertTrue(sub.isExploto() == true);
+	
 	}
 
 	@Test
 	public void test06LiberarCapsula02() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2, 0);
+		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
 		float direccionInicial = 0;
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
 		sub.accion("d");

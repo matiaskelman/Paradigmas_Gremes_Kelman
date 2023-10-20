@@ -6,24 +6,22 @@ import java.util.stream.Collectors;
 
 public class Sub {
 	private Coordenadas coordenadas;
+	public DepthManager depth;
 	private double direccion;
-	private boolean exploto;
 
 	public Sub(Coordenadas coordenadasIniciales, double direccionInicial) {
 		coordenadas = coordenadasIniciales;
 		direccion = direccionInicial;
-		setExploto(false);
+		depth = new DepthManager();
 	}
 
 	public void accion(String comandos) {
-		ArrayList<Character> comandoList = new ArrayList<Character>(comandos.chars().mapToObj(e -> (char) e).collect(Collectors.toList()));
-		System.out.print(comandoList);
-		comandoList.forEach(comando -> accionForSingleCommand(comando));}
-
-		
+		ArrayList<Character> comandoList = new ArrayList<Character>(
+				comandos.chars().mapToObj(e -> (char) e).collect(Collectors.toList()));
+		comandoList.forEach(comando -> accionForSingleCommand(comando));
+	}
 
 	public void accionForSingleCommand(char comando) {
-		System.out.print(comando);
 		Command.accionFor(comando).move(this);
 	}
 
@@ -43,11 +41,7 @@ public class Sub {
 		this.coordenadas = coordenadas;
 	}
 
-	public boolean isExploto() {
-		return exploto;
-	}
-
-	public void setExploto(boolean exploto) {
-		this.exploto = exploto;
+	public int getDepth() {
+		return -depth.size();
 	}
 }

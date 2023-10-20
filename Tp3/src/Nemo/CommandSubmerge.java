@@ -6,6 +6,6 @@ public class CommandSubmerge extends Command{
 
     @Override
     public void move(Sub submarino) {
-        submarino.getCoordenadas().descend();
+        submarino.depth.descend();
     }
 }

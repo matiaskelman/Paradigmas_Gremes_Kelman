@@ -2,24 +2,22 @@ package Nemo;
 
 import java.util.List;
 
-
 public class DepthDeep extends Depth {
-	
-	Error errorMessage = new Error("Queue is empty");
-	
-	@Override
-	public Object take(List<Element> list) {throw errorMessage;}
-	
-	@Override
-	public Object head() {throw errorMessage;}
+
+	private Error errorMessage = new Error("Can not release missile form this depth");
+
+	DepthDeep() {}
 
 	@Override
-	public boolean isEmpty() {return true;}
-
-	@Override
-	public Object take(List<Element> list) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object ascend(List<Depth> list) {
+		list.remove(list.size() - 1);
+		return this.content;
 	}
-	
+
+	@Override
+	public Object releaseMissile() {
+		{
+			throw errorMessage;
+		}
+	}
 }

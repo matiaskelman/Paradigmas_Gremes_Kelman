@@ -7,6 +7,6 @@ public class CommandRelease extends Command{
     @Override
     public void move(Sub submarino) {
     	
-submarino.setExploto(true);
+submarino.depth.releaseMissile();
     }
 }

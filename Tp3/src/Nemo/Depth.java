@@ -2,15 +2,12 @@ package Nemo;
 
 import java.util.List;
 
-import javax.lang.model.element.Element;
-
 abstract class Depth {
+
+	public Object content;
+
+	public abstract Object ascend(List<Depth> list);
+
+	public abstract Object releaseMissile();
 	
-	private ArrayList<> profundidad =  
-
-	public abstract boolean isEmpty();
-
-	public abstract Object take(List<Element> list);
-
-	public abstract Object head();
 }
