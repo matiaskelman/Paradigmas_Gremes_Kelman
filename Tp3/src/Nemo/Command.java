@@ -1,9 +1,8 @@
 package Nemo;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Nodes.collect;
+
 
 abstract class Command {
 	private static List<Command> availableCommands = Arrays.asList(new CommandRigth(), new CommandLeft(), new CommandEmerge(),
@@ -11,7 +10,8 @@ abstract class Command {
 	
 	public char key;
 
-	public static Command commandFor(char command) {
+	public static Command accionFor(char command) {
+		System.out.print(command);
         return (Command) availableCommands
 				.stream()
 				.filter(c -> command == c.key);
