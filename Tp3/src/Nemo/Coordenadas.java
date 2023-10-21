@@ -10,12 +10,14 @@ public class Coordenadas {
 		this.y = y;
 	}
 
-	public void moverX(int mover) {
+	public Coordenadas moverX(int mover) {
 		this.x = this.x + mover;
+		return this;
 	}
 
-	public void moverY(int mover) {
+	public Coordenadas moverY(int mover) {
 		this.y = this.y + mover;
+		return this;
 	}
 
 	public int getX() {

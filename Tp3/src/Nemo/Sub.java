@@ -7,29 +7,26 @@ import java.util.stream.Collectors;
 public class Sub {
 	private Coordenadas coordenadas;
 	public DepthManager depth;
-	private double direccion;
+	private String direccion;
 
-	public Sub(Coordenadas coordenadasIniciales, double direccionInicial) {
+	public Sub(Coordenadas coordenadasIniciales, String direccionInicial) {
 		coordenadas = coordenadasIniciales;
 		direccion = direccionInicial;
 		depth = new DepthManager();
 	}
 
 	public void accion(String comandos) {
-		ArrayList<Character> comandoList = new ArrayList<Character>(
-				comandos.chars().mapToObj(e -> (char) e).collect(Collectors.toList()));
-		comandoList.forEach(comando -> accionForSingleCommand(comando));
-	}
-
+		comandos.chars().forEachOrdered(comando -> accionForSingleCommand((char) comando));
+		}
 	public void accionForSingleCommand(char comando) {
-		Command.accionFor(comando).move(this);
+			Command.commandFor(comando).move(this);
 	}
 
-	public double getDireccion() {
+	public String getDireccion() {
 		return this.direccion;
 	}
 
-	public void setDireccion(double d) {
+	public void setDireccion(String d) {
 		this.direccion = d;
 	}
 

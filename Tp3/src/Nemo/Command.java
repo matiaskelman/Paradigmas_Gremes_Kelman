@@ -1,7 +1,7 @@
 package Nemo;
 
 import java.util.*;
-
+import java.util.stream.Collectors;
 
 
 abstract class Command {
@@ -10,12 +10,14 @@ abstract class Command {
 	
 	public char key;
 
-	public static Command accionFor(char command) {
+	public static Command commandFor(char command) {
 		System.out.print(command);
-        return (Command) availableCommands
-				.stream()
-				.filter(c -> command == c.key).findFirst().get();
-
+		List<Command> commandGottenFromFilter =
+				availableCommands
+						.stream()
+						.filter(c -> command == c.key)
+						.collect(Collectors.toList());
+		return commandGottenFromFilter.get(0);
 	}
 
 	public abstract void move(Sub submarino);

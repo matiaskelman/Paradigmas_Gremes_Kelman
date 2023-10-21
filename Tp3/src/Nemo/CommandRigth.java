@@ -7,6 +7,9 @@ public class CommandRigth extends Command {
 
 	@Override
 	public void move(Sub submarino) {
-		submarino.setDireccion(submarino.getDireccion() - 90);
+		submarino.setDireccion(cardinalPoint
+				.getClassRelatedToSubDirection(submarino.getDireccion())
+				.turnRight()
+		);
 	}
 }
