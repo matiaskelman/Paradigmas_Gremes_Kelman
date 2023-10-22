@@ -1,136 +1,213 @@
 package Nemo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class nemoTest {
 	@Test
 	public void test01NewSubmarine() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		assertTrue(sub.getCoordenadas() == coordenadasIniciales);
-		assertTrue(sub.getDireccion() == direccionInicial);
+        assertSame(sub.getCoordinates(), coordenadasIniciales);
+        assertSame(sub.getDirection(), direccionInicial);
 	}
 
 	@Test
 	public void test02NullCommands() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("");
-		assertTrue(sub.getCoordenadas() == coordenadasIniciales);
-		assertTrue(sub.getDireccion() == direccionInicial);
+		sub.action("");
+        assertSame(sub.getCoordinates(), coordenadasIniciales);
+        assertSame(sub.getDirection(), direccionInicial);
 	}
 
 	@Test
 	public void test03Descend() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("d");
-		assertTrue(sub.getDepth() == -1);
+		sub.action("d");
+        assertEquals(-1, sub.getDepth());
 	}
 
 	@Test
 	public void test04Ascend() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("d");
-		sub.accion("d");
-		sub.accion("u");
-		assertTrue(sub.getDepth() == -1);
+		sub.action("ddu");
+        assertEquals(-1, sub.getDepth());
 	}
 
 	@Test
-	public void test05LiberarCapsula01() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+	public void test05AscendOnSurface() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("d");
-		sub.accion("d");
-		sub.accion("m");
-	
+		assertThrowsLike(() -> sub.action("u"), DepthZero.ERROR_MESSAGE);
 	}
 
-//	@Test
-//	public void test06LiberarCapsula02() {
-//		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
-//		float direccionInicial = 0;
-//		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-//		sub.accion("d");
-//		sub.accion("m");
-//		assertTrue(sub.isExploto() == false);
-//	}
-
 	@Test
-	public void test07RotarDerecha01() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+	public void test06RotateNorthRight() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("r");
-        assertEquals("East", sub.getDireccion());
+		sub.action("r");
+        assertSame("East", sub.getDirection());
 	}
 
 	@Test
-	public void test08RotarIzquierda01() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
-		String direccionInicial = "East";
+	public void test07RotateNorthLeft() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "North";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("l");
-		assertTrue(sub.getDireccion() == "North");
-	}
-
-	public void test09Rotar() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
-		String direccionInicial = "East";
-		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("l");
-		sub.accion("r");
-		assertTrue(sub.getDireccion() == "East");
+		sub.action("l");
+		assertSame("West", sub.getDirection());
 	}
 
 	@Test
-	public void test10Avanzar01() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
-		String direccionInicial = "East";
+	public void test08RotateSouthRight() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "South";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("f");
-		assertTrue(sub.getCoordenadas().getX() == 2);
+		sub.action("r");
+		assertSame("West", sub.getDirection());
 	}
 
 	@Test
-	public void test11Avanzar02() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
-		String direccionInicial = "East";
+	public void test09RotateSouthLeft() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "South";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("d");
-		sub.accion("r");
-		sub.accion("f");
-		assertTrue(sub.getCoordenadas().getY() == 1);
+		sub.action("l");
+		assertSame("East", sub.getDirection());
 	}
 
 	@Test
-	public void test12Avanzar03() {
-		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
+	public void test10RotateEastRight() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
 		String direccionInicial = "East";
 		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-		sub.accion("d");
-		sub.accion("r");
-		sub.accion("r");
-		sub.accion("f");
-		assertTrue(sub.getCoordenadas().getX() == 0);
+		sub.action("r");
+		assertSame("South", sub.getDirection());
 	}
 
-//	@Test
-//	public void test13MultiplesComandos() {
-//		Coordenadas coordenadasIniciales = new Coordenadas(1, 2);
-//		float direccionInicial = 0;
-//		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
-//		sub.accion("ddm");
-//		assertTrue(sub.isExploto() == true);
-//	}
+	@Test
+	public void test11RotateEastLeft() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "East";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("l");
+        assertSame("North", sub.getDirection());
+	}
 
-} // Test
+	@Test
+	public void test12RotateWestRight() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "West";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("r");
+		assertSame("North", sub.getDirection());
+	}
+
+	@Test
+	public void test13RotateWestLeft() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "West";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("l");
+		assertSame("South", sub.getDirection());
+	}
+
+	@Test
+	public void test14Rotate() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "East";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("lr");
+        assertSame("East", sub.getDirection());
+	}
+
+	@Test
+	public void test15AdvanceEast() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "East";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("f");
+        assertEquals(2, sub.getCoordinates().getX());
+	}
+
+	@Test
+	public void test16AdvanceWest() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "West";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("f");
+		assertEquals(0, sub.getCoordinates().getX());
+	}
+
+	@Test
+	public void test17AdvanceNorth() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "North";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("f");
+		assertEquals(3, sub.getCoordinates().getY());
+	}
+
+	@Test
+	public void test18AdvanceSouth() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "South";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("f");
+		assertEquals(1, sub.getCoordinates().getY());
+	}
+
+	@Test
+	public void test19AdvanceAfterChangeOfDirection01() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "East";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("drf");
+        assertEquals(1, sub.getCoordinates().getY());
+	}
+
+	@Test
+	public void test20AdvanceAfterChangeOfDirection02() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "East";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		sub.action("drrf");
+        assertEquals(0, sub.getCoordinates().getX());
+	}
+
+	@Test
+	public void test21ReleaseCapsuleAtInappropriateDepth01() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "North";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		assertThrowsLike(() -> sub.action("ddm"), DepthDangerousForCapsule.ERROR_MESSAGE);
+	}
+
+	@Test
+	public void test22ReleaseCapsuleAtInappropriateDepth02() {
+		Coordinates coordenadasIniciales = new Coordinates(1, 2);
+		String direccionInicial = "North";
+		Sub sub = new Sub(coordenadasIniciales, direccionInicial);
+		assertThrowsLike(() -> sub.action("dddm"), DepthDangerousForCapsule.ERROR_MESSAGE);
+	}
+
+
+	private void assertThrowsLike(Executable executable, String message) {
+
+		assertEquals(message,
+				assertThrows(Exception.class , executable ).getMessage());
+
+	}
+}
+

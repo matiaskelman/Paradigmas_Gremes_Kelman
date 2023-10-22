@@ -5,8 +5,9 @@ public class CommandEmerge extends Command {
     {this.key = 'u';}
 
     @Override
-    public void move(Sub submarino) {
-        submarino.depth.ascend();
-
+    public void commandAction(Sub submarine) {
+        submarine
+                .getDepthManager()
+                .ascend();
     }
 }

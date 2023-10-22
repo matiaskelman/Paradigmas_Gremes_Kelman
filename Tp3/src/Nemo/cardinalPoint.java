@@ -23,5 +23,5 @@ public abstract class cardinalPoint {
 
     public abstract String turnLeft();
 
-    public abstract Coordenadas movementOnThePlain(Sub submarino);
+    public abstract Coordinates movementOnThePlain(Sub submarino);
 }

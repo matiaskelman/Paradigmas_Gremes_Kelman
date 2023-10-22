@@ -1,44 +1,32 @@
 package Nemo;
 
-import java.util.ArrayList;
-
-import java.util.stream.Collectors;
-
 public class Sub {
-	private Coordenadas coordenadas;
-	public DepthManager depth;
-	private String direccion;
+	private Coordinates coordinates;
+	private DepthManager depth;
+	private String direction;
 
-	public Sub(Coordenadas coordenadasIniciales, String direccionInicial) {
-		coordenadas = coordenadasIniciales;
-		direccion = direccionInicial;
-		depth = new DepthManager();
-	}
+	public Sub(Coordinates initialCoordinate, String initialDirection) {
+		coordinates = initialCoordinate;
+		direction = initialDirection;
+        depth = new DepthManager();
+    }
 
-	public void accion(String comandos) {
-		comandos.chars().forEachOrdered(comando -> accionForSingleCommand((char) comando));
-		}
-	public void accionForSingleCommand(char comando) {
-			Command.commandFor(comando).move(this);
-	}
+	public String getDirection() {return this.direction;}
 
-	public String getDireccion() {
-		return this.direccion;
-	}
+	public void setDirection(String d) {this.direction = d;}
 
-	public void setDireccion(String d) {
-		this.direccion = d;
-	}
+	public Coordinates getCoordinates() {return this.coordinates;}
 
-	public Coordenadas getCoordenadas() {
-		return this.coordenadas;
-	}
+	public void setCoordinates(Coordinates coordinates) {this.coordinates = coordinates;}
 
-	public void setCoordenadas(Coordenadas coordenadas) {
-		this.coordenadas = coordenadas;
-	}
+	public int getDepth() {return -depth.size();}
 
-	public int getDepth() {
-		return -depth.size();
+	public DepthManager getDepthManager() {return this.depth;}
+
+	public void action(String commands) {
+		commands
+				.chars()
+				.forEachOrdered(command -> actionForSingleCommand((char) command));
 	}
+	public void actionForSingleCommand(char command) {Command.commandFor(command).commandAction(this);}
 }

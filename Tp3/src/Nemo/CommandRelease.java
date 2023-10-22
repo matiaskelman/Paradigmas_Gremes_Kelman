@@ -5,8 +5,9 @@ public class CommandRelease extends Command{
     {this.key = 'm';}
 
     @Override
-    public void move(Sub submarino) {
-    	
-submarino.depth.releaseMissile();
+    public void commandAction(Sub submarine) {
+        submarine
+                .getDepthManager()
+                .releaseCapsule();
     }
 }

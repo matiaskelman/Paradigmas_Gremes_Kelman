@@ -5,10 +5,11 @@ public class CommandLeft extends Command{
     {this.key = 'l';}
 
     @Override
-    public void move(Sub submarino) {
-        submarino.setDireccion(cardinalPoint
-                .getClassRelatedToSubDirection(submarino.getDireccion())
-                .turnLeft()
+    public void commandAction(Sub submarine) {
+        submarine
+                .setDirection(cardinalPoint
+                        .getClassRelatedToSubDirection(submarine.getDirection())
+                        .turnLeft()
         );
     }
 }

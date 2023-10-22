@@ -5,7 +5,9 @@ public class CommandSubmerge extends Command{
     {this.key = 'd';}
 
     @Override
-    public void move(Sub submarino) {
-        submarino.depth.descend();
+    public void commandAction(Sub submarine) {
+        submarine
+                .getDepthManager()
+                .descend();
     }
 }

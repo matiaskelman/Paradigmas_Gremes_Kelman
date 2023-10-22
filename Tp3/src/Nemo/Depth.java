@@ -4,10 +4,10 @@ import java.util.List;
 
 abstract class Depth {
 
-	public Object content;
+	public abstract void decreaseDeepness(List<Depth> list);
 
-	public abstract Object ascend(List<Depth> list);
+	public abstract void increaseDeepness(List<Depth> list);
 
-	public abstract Object releaseMissile();
+	public abstract void releaseCapsule();
 	
 }
