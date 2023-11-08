@@ -19,17 +19,14 @@ public class Linea {
 	}
 
 	public int getCantColumnas() {
-		// TODO Auto-generated method stub
 		return this.tablero.size();
 	}
 
-	public ArrayList<Character> getColumna(int index) {
-		index = index - 1;
-		return tablero.get(index);
+	public ArrayList<Character> getColumna(int columna) {
+		return tablero.get(columna-1);
 	}
 
 	public int getAltura() {
-		// TODO Auto-generated method stub
 		return altura;
 	}
 
@@ -39,6 +36,35 @@ public class Linea {
 	public void agregarAzulEnColumna(int columna) {
 		this.getColumna(columna).add('A');
 	}
+
+	public char getGameMode() {
+		return gameMode;
+	}
+
+	public boolean show() {
+
+		return true;
+	}
+
+	public boolean finished() {
+		if (this.gameMode == 'A') {
+			for (int index = 0; index == tablero.size() - 1; index++) {
+				ArrayList<Character> column = this.tablero.get(index);
+				if (column.get(column.size() - 1) == 1) {
+
+				}
+
+			}
+		}
+		return true;
+	}
+
+	public void playRedAt(int prompt) {
+	}
+
+	public void playBlueAt(int prompt) {
+	}
 }
+
 
 //[[R(1,1),R(2,1)][B][][]]
