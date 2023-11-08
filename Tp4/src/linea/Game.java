@@ -2,42 +2,38 @@ package linea;
 
 public class Game {
 
-    public static void main( String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
-        System.out.println( "Dimensiones?");
+		System.out.println("Dimensiones?");
 
-        Linea game = new Linea( prompt( "Base? " ), prompt( "Altura? " ), 'C' );
+		Linea game = new Linea(prompt("Base? "), prompt("Altura? "), 'C');
 
+		System.out.println(game.show());
 
-        System.out.println( game.show() );
+		while (!game.finished()) {
 
+			game.playRedAt(prompt("Red? "));
 
-        while ( !game.finished() ) {
+			System.out.println(game.show());
 
-            game.playRedAt( prompt( "Red? " ) );
+			if (!game.finished()) {
 
-            System.out.println( game.show() );
+				game.playBlueAt(prompt("Blue? "));
 
+				System.out.println(game.show());
 
+			}
 
-            if ( !game.finished() ) {
+		}
 
-                game.playBlueAt( prompt( "Blue? " ) );
+	}
 
-                System.out.println( game.show() );
+	private static int prompt(String message) {
 
-            }
+		System.out.print(message);
 
-        }
+		return Integer.parseInt(System.console().readLine());
 
-    }
-
-    private static int prompt( String message ) {
-
-        System.out.print( message );
-
-        return Integer.parseInt( System.console().readLine() );
-
-    }
+	}
 
 }
