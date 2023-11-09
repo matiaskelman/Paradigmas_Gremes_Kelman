@@ -41,33 +41,18 @@ public class gameTest {
 	}
 
 	@Test
-	public void test05AzulPonePrimerFicha() {
-		Linea linea = new Linea(1, 2, 'C');
-		linea.agregarAzulEnColumna(1);
-		assertSame(linea.getColumna(1).get(0), 'A');
+	public void test05AzulPoneFicha() {
+		Linea linea = new Linea(2, 2, 'C');
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		assertSame(linea.getColumna(2).get(0), 'A');
 	}
 
 	@Test
-	public void test06RojoRepiteFichEnLaColumna() {
-		Linea linea = new Linea(2, 2, 'C');
-		linea.agregarRojoEnColumna(1);
-		linea.agregarRojoEnColumna(1);
-		assertSame(linea.getColumna(1).get(0), 'R');
-		assertSame(linea.getColumna(1).get(1), 'R');
-	}
-	@Test
-	public void test07AzulRepiteFichEnLaColumna() {
-		Linea linea = new Linea(2, 2, 'C');
-		linea.agregarAzulEnColumna(1);
-		linea.agregarAzulEnColumna(1);
-		assertSame(linea.getColumna(1).get(0), 'A');
-		assertSame(linea.getColumna(1).get(1), 'A');
-	}
-	@Test
 	public void test08AzulYRojoPonenFicha(){
 		Linea linea = new Linea(2,3,'C');
-		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(1);
 		assertSame(linea.getColumna(1).get(0),'A');
 		assertSame(linea.getColumna(2).get(0),'R');
 	}
@@ -97,19 +82,21 @@ public class gameTest {
 	}
 	@Test
 	public void test11GanaAzulEnModoA_Vertical(){
-		Linea linea = new Linea(2,5,'A');
-		linea.agregarAzulEnColumna(2);
+		Linea linea = new Linea(3,5,'A');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(3);
 		linea.agregarAzulEnColumna(2);
 		assertTrue(linea.finished());
 	}
 	@Test
 	public void test12GanaAzulEnModoA_Horizontal(){
 		Linea linea = new Linea(5,5,'A');
+		linea.agregarRojoEnColumna(5);
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -224,6 +211,7 @@ public class gameTest {
 	@Test
 	public void test22AzulAgregaFichaDosVecesSeguidas(){
 		Linea linea = new Linea(5,5,'A');
+		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(1);
 		assertThrowsLike(() -> linea.agregarAzulEnColumna(1),"Azul no puede poner fichas dos veces seguidas");
 	}
