@@ -103,32 +103,58 @@ public class Linea {
 					}
 					indexColumna++;
 				}
-		//Algoritmo para horizontales
-		for (int fila = 0; altura-1 > fila; fila++){
-            int contadorDeFichasHorizontalesRojas = 0;
-			int indexCol = 0;
-			if(tablero.get(indexCol).get(fila) == 'R') {
-				while ( indexCol < this.getCantColumnas() && contadorDeFichasHorizontalesRojas < 4){
-					if(tablero.get(indexCol).get(fila) != 'R'){break;}
-					else{contadorDeFichasHorizontalesRojas++;}
+			//Algoritmo para horizontales
+			for (int fila = 0; altura-1 > fila; fila++){
+				int contadorDeFichasHorizontalesRojas = 0;
+				int indexCol = 0;
+				if(tablero.get(indexCol).get(fila) == 'R') {
+					while ( indexCol < this.getCantColumnas() && contadorDeFichasHorizontalesRojas < 4){
+						if(tablero.get(indexCol).get(fila) != 'R'){break;}
+						else{contadorDeFichasHorizontalesRojas++;}
+					}
+					if(contadorDeFichasHorizontalesRojas == 4){return true;}
 				}
-				if(contadorDeFichasHorizontalesRojas == 4){return true;}
-			}
-			int contadorDeFichasHorizontalesAzules = 0;
-			if(tablero.get(indexCol).get(fila) == 'A') {
-				while ( indexCol < this.getCantColumnas() && contadorDeFichasHorizontalesAzules < 4){
-					if(tablero.get(indexCol).get(fila) != 'A'){break;}
-					else{contadorDeFichasHorizontalesAzules++;}
+				int contadorDeFichasHorizontalesAzules = 0;
+				if(tablero.get(indexCol).get(fila) == 'A') {
+					while ( indexCol < this.getCantColumnas() && contadorDeFichasHorizontalesAzules < 4){
+						if(tablero.get(indexCol).get(fila) != 'A'){break;}
+						else{contadorDeFichasHorizontalesAzules++;}
+					}
+					if(contadorDeFichasHorizontalesAzules == 4){return true;}
 				}
-				if(contadorDeFichasHorizontalesAzules == 4){return true;}
-			}
 //			tablero.stream().forEach((columna) -> {if( columna.get(finalFila) == 'R'){}
 //			});
 //			//int contadorDeFichasHorizontalesRojas = (int) tablero.stream().filter(columna -> columna.get(finalFila) == 'R').count();
 //			if (contadorDeFichasHorizontalesRojas == 4){return true;}
 //			int contadorDeFichasHorizontalesAzules = (int) tablero.stream().filter(columna -> columna.get(finalFila) == 'A').count();
 //			if (contadorDeFichasHorizontalesAzules == 4){return true;}
+			}
 		}
+		if(this.gameMode == 'B'){
+			int aumentoEnX=0;
+			int aumentoEnY=0;
+			while(aumentoEnX < this.getCantColumnas() && !tablero.get(aumentoEnX).isEmpty() && altura-1 > aumentoEnY) {
+				int contadorFichasRojas = 0;
+				int indexCol = 0;
+				int indexFila = 0;
+				while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila) {
+					//for (int indexCol = 0, aumentoEnY = 0;indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura-1 > aumentoEnY;aumentoEnY++,indexCol++){
+					if (tablero.get(indexCol).get(indexFila) == 'R') {
+						contadorFichasRojas++;
+						indexFila++;
+						indexCol++;
+					}
+					else {break;}
+				}
+				for (int indexCol = 0, indexFila = 0; indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila; indexFila++, indexCol++) {
+					if (tablero.get(indexCol).get(indexFila) == 'A') {
+						contadorFichasRojas++;
+					} else {
+						break;
+					}
+				}
+
+			}
 		}
 		return false;
 	}
