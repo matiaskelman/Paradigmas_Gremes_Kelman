@@ -64,7 +64,7 @@ public class gameTest {
 		assertSame(linea.getColumna(1).get(1), 'A');
 	}
 	@Test
-	public void test06AzulYRojoPonenFicha(){
+	public void test08AzulYRojoPonenFicha(){
 		Linea linea = new Linea(2,3,'C');
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(2);
@@ -72,7 +72,7 @@ public class gameTest {
 		assertSame(linea.getColumna(2).get(0),'R');
 	}
 	@Test
-	public void test07GanaRojoEnModoA_Vertical(){
+	public void test09GanaRojoEnModoA_Vertical(){
 		Linea linea = new Linea(2,5,'A');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -84,7 +84,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test08GanaRojoEnModoA_Horizontal(){
+	public void test10GanaRojoEnModoA_Horizontal(){
 		Linea linea = new Linea(5,5,'A');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(1);
@@ -96,7 +96,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test09GanaAzulEnModoA_Vertical(){
+	public void test11GanaAzulEnModoA_Vertical(){
 		Linea linea = new Linea(2,5,'A');
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(1);
@@ -108,7 +108,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test10GanaAzulEnModoA_Horizontal(){
+	public void test12GanaAzulEnModoA_Horizontal(){
 		Linea linea = new Linea(5,5,'A');
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(1);
@@ -120,7 +120,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test11GanaRojoEnModoB(){
+	public void test13GanaRojoEnModoB(){
 		Linea linea = new Linea(5,5,'B');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -132,7 +132,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test12GanaAzulEnModoB(){
+	public void test14GanaAzulEnModoB(){
 		Linea linea = new Linea(5,5,'B');
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(2);
@@ -144,7 +144,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test07GanaRojoEnModoC_Vertical(){
+	public void test15GanaRojoEnModoC_Vertical(){
 		Linea linea = new Linea(2,5,'C');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -156,7 +156,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test08GanaRojoEnModoC_Horizontal(){
+	public void test16GanaRojoEnModoC_Horizontal(){
 		Linea linea = new Linea(5,5,'C');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(1);
@@ -168,7 +168,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test11GanaRojoEnModoC_Diagonal(){
+	public void test17GanaRojoEnModoC_Diagonal(){
 		Linea linea = new Linea(5,5,'C');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -180,7 +180,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test09GanaAzulEnModoC_Vertical(){
+	public void test18GanaAzulEnModoC_Vertical(){
 		Linea linea = new Linea(2,5,'C');
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(1);
@@ -192,7 +192,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test10GanaAzulEnModoC_Horizontal(){
+	public void test19GanaAzulEnModoC_Horizontal(){
 		Linea linea = new Linea(5,5,'C');
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(1);
@@ -204,7 +204,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test12GanaAzulEnModoC_Diagonal(){
+	public void test20GanaAzulEnModoC_Diagonal(){
 		Linea linea = new Linea(5,5,'C');
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(2);
@@ -216,13 +216,13 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test20RojoAgregaFichaDosVecesSeguidas(){
+	public void test21RojoAgregaFichaDosVecesSeguidas(){
 		Linea linea = new Linea(5,5,'A');
 		linea.agregarRojoEnColumna(1);
 		assertThrowsLike(() -> linea.agregarRojoEnColumna(1),"Rojo no puede poner fichas dos veces seguidas");
 	}
 	@Test
-	public void test20AzulAgregaFichaDosVecesSeguidas(){
+	public void test22AzulAgregaFichaDosVecesSeguidas(){
 		Linea linea = new Linea(5,5,'A');
 		linea.agregarAzulEnColumna(1);
 		assertThrowsLike(() -> linea.agregarAzulEnColumna(1),"Azul no puede poner fichas dos veces seguidas");

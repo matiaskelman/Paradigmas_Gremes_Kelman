@@ -50,28 +50,28 @@ public class Linea {
 	public boolean finished() {
 		if (gameMode == 'A') {
 			int index = 0;
-			while(index < tablero.size()){
-			//for (int index = 0; index < tablero.size() - 1; index++)
+			while (index < tablero.size()) {
+				// for (int index = 0; index < tablero.size() - 1; index++)
 				ArrayList<Character> column = this.tablero.get(index);
 				if (column.get(column.size() - 1) == 'R') {
-					int contadorDeFichasRojas = 1;		   //[0,1,2,3]
-					int indexDeFichaRoja = column.size() - 2; //[R,R,R,R]
-					while(indexDeFichaRoja >= 0 && contadorDeFichasRojas < 4){
+					int contadorDeFichasRojas = 1; // [0,1,2,3]
+					int indexDeFichaRoja = column.size() - 2; // [R,R,R,R]
+					while (indexDeFichaRoja >= 0 && contadorDeFichasRojas < 4) {
 						if (column.get(indexDeFichaRoja) != 'R') {
 							break;
 						} else {
 							contadorDeFichasRojas++;
 							indexDeFichaRoja--;
 						}
-					if (contadorDeFichasRojas == 4) {
-						return true;
+						if (contadorDeFichasRojas == 4) {
+							return true;
 						}
 					}
 				}
 				if (column.get(column.size() - 1) == 'A') {
-					int contadorDeFichasAzules = 1;		   //[0,1,2,3]
-					int indexDeFichaAzul = column.size() - 2; //[R,R,R,R]
-					while(indexDeFichaAzul >= 0 && contadorDeFichasAzules < 4){
+					int contadorDeFichasAzules = 1; // [0,1,2,3]
+					int indexDeFichaAzul = column.size() - 2; // [R,R,R,R]
+					while (indexDeFichaAzul >= 0 && contadorDeFichasAzules < 4) {
 						if (column.get(indexDeFichaAzul) != 'A') {
 							break;
 						} else {
@@ -89,6 +89,5 @@ public class Linea {
 		return false;
 	}
 }
-
 
 //[[R(1,1),R(2,1)][B][][]]
