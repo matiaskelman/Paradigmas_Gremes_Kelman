@@ -12,13 +12,13 @@ public class Game {
 
 		while (!game.finished()) {
 
-			game.playRedAt(prompt("Red? "));
+			game.agregarRojoEnColumna(prompt("Red? "));
 
 			System.out.println(game.show());
 
 			if (!game.finished()) {
 
-				game.playBlueAt(prompt("Blue? "));
+				game.agregarAzulEnColumna(prompt("Blue? "));
 
 				System.out.println(game.show());
 

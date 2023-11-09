@@ -1,11 +1,11 @@
 package linea;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import org.junit.jupiter.api.function.Executable;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class gameTest {
 //Soy gay. Si no me pones un 10 es porque sos homofobico.
@@ -137,7 +137,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test08GanaRojoEnModo_Horizontal(){
+	public void test08GanaRojoEnModoC_Horizontal(){
 		Linea linea = new Linea(5,5,'C');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(1);
@@ -159,5 +159,61 @@ public class gameTest {
 		linea.agregarAzulEnColumna(4);
 		linea.agregarRojoEnColumna(4);
 		assertTrue(linea.finished());
+	}
+	@Test
+	public void test09GanaAzulEnModoC_Vertical(){
+		Linea linea = new Linea(2,5,'C');
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		assertTrue(linea.finished());
+	}
+	@Test
+	public void test10GanaAzulEnModoC_Horizontal(){
+		Linea linea = new Linea(5,5,'C');
+		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(3);
+		linea.agregarAzulEnColumna(4);
+		assertTrue(linea.finished());
+	}
+	@Test
+	public void test12GanaAzulEnModoC_Diagonal(){
+		Linea linea = new Linea(5,5,'C');
+		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(3);
+		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(4);
+		assertTrue(linea.finished());
+	}
+	@Test
+	public void test20RojoAgregaFichaDosVecesSeguidas(){
+		Linea linea = new Linea(5,5,'A');
+		linea.agregarRojoEnColumna(1);
+		assertThrowsLike(() -> linea.agregarRojoEnColumna(1),"Rojo no puede poner fichas dos veces seguidas");
+	}
+	@Test
+	public void test20AzulAgregaFichaDosVecesSeguidas(){
+		Linea linea = new Linea(5,5,'A');
+		linea.agregarAzulEnColumna(1);
+		assertThrowsLike(() -> linea.agregarAzulEnColumna(1),"Azul no puede poner fichas dos veces seguidas");
+	}
+
+	private void assertThrowsLike(Executable executable, String message) {
+
+		assertEquals(message,
+
+				assertThrows(Exception.class , executable ).getMessage());
+
 	}
 }
