@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Linea {
 
-	private char gameMode;
+	private GameMode gameMode;
 	private int altura;
-	private String turno;
+	private Turno turno;
 	private int columnaDeUltimaFichaPuesta;
 	List<ArrayList<Character>> tablero;
 
@@ -17,8 +17,8 @@ public class Linea {
 			tablero.add(new ArrayList<Character>());
 		}
 		this.altura = altura;
-		this.gameMode = gameMode;
-		this.turno = "Rojo";
+		this.gameMode = GameMode.modoFor(gameMode);
+		this.turno = new TurnoRojo();
 
 	}
 
@@ -39,25 +39,14 @@ public class Linea {
 	}
 
 	public void agregarRojoEnColumna(int columna) {
-		if(turno.equals("Rojo")){
-			tablero.get(columna-1).add('R');
-			this.turno = "Azul";
-			this.columnaDeUltimaFichaPuesta = columna;
-		}
-		else {
-			throw new RuntimeException("Rojo no puede poner fichas dos veces seguidas");
-		}
+		tablero.get(columna-1).add(turno.juegaRojo());
+		this.turno = new TurnoAzul();
+
 	}
 
 	public void agregarAzulEnColumna(int columna) {
-		if(turno.equals("Azul")){
-			tablero.get(columna-1).add('A');
-			this.turno = "Rojo";
-			this.columnaDeUltimaFichaPuesta = columna;
-		}
-		else {
-			throw new RuntimeException("Azul no puede poner fichas dos veces seguidas");
-		}
+		tablero.get(columna-1).add(turno.juegaAzul());
+		this.turno = new TurnoRojo();
 	}
 
 	public boolean show() {
@@ -81,6 +70,7 @@ public class Linea {
 								indexDeFichaRoja--;
 							}
 							if (contadorDeFichasRojasVerticales == 4) {
+//								turno = new TurnoTerminado();
 								return true;
 							}
 						}
@@ -122,57 +112,9 @@ public class Linea {
 					}
 					if(contadorDeFichasHorizontalesAzules == 4){return true;}
 				}
-//			tablero.stream().forEach((columna) -> {if( columna.get(finalFila) == 'R'){}
-//			});
-//			//int contadorDeFichasHorizontalesRojas = (int) tablero.stream().filter(columna -> columna.get(finalFila) == 'R').count();
-//			if (contadorDeFichasHorizontalesRojas == 4){return true;}
-//			int contadorDeFichasHorizontalesAzules = (int) tablero.stream().filter(columna -> columna.get(finalFila) == 'A').count();
-//			if (contadorDeFichasHorizontalesAzules == 4){return true;}
 			}
 		}
 		if(this.gameMode == 'B'){
-//			int aumentoEnX=0;
-//			int aumentoEnY=0;
-//			while(aumentoEnX < this.getCantColumnas() && !tablero.get(aumentoEnX).isEmpty() && altura-1 > aumentoEnY) {
-//				int contadorFichasRojas = 0;
-//				int indexCol = 0 + aumentoEnX;
-//				int indexFila = 0 + aumentoEnY;
-//				while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila) {
-//					//for (int indexCol = 0, aumentoEnY = 0;indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura-1 > aumentoEnY;aumentoEnY++,indexCol++){
-//					if (tablero.get(indexCol).get(indexFila) == 'R') {
-//						contadorFichasRojas++;
-//						indexFila++;
-//						indexCol++;
-//					}
-//					else {
-//						aumentoEnX++;
-//						break;}
-//				}
-//				//for (int indexCol = 0, indexFila = 0; indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila; indexFila++, indexCol++) {
-//				//	if (tablero.get(indexCol).get(indexFila) == 'A') {
-//				//		contadorFichasRojas++;
-//				//	} else {
-//				//		break;
-//				//	}
-//				//}
-//			}
-//			while(aumentoEnX > 0 && !tablero.get(aumentoEnX).isEmpty() && altura-1 > aumentoEnY) {
-//				int contadorFichasRojas = 0;
-//				int indexCol = 0 + aumentoEnX;
-//				int indexFila = 0 + aumentoEnY;
-//				while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila) {
-//					//for (int indexCol = 0, aumentoEnY = 0;indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura-1 > aumentoEnY;aumentoEnY++,indexCol++){
-//					if (tablero.get(indexCol).get(indexFila) == 'R') {
-//						contadorFichasRojas++;
-//						indexFila++;
-//						indexCol++;
-//					}
-//					else {
-//						aumentoEnX--;
-//						aumentoEnY++;
-//						break;}
-//				}
-//			}
 			int contadorDeFichasRojas = 0;
 			int contadorDeFichasAzules = 0;
 			int contadorDeFichasTotales = 0;
@@ -181,10 +123,10 @@ public class Linea {
 			//primer cuadrante
 			while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura > indexFila) {
 				if (tablero.get(indexCol).get(indexFila) == 'R') {
-					contadorDeFichasRojas++;
-					indexCol++;
-					indexFila++;
-					contadorDeFichasTotales++;
+					contadorDeFichasRojas++;							//	  o   o			X
+					indexCol++;											//		X		      X
+					indexFila++;										//    0   o				O
+					contadorDeFichasTotales++;							//						 X
 				} else if (tablero.get(indexCol).get(indexFila) == 'A') {
 					contadorDeFichasAzules++;
 					indexCol++;

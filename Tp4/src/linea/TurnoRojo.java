@@ -1,24 +1,18 @@
-//package linea;
+package linea;
+
+public class TurnoRojo extends Turno{
+
+
+    public char juegaRojo(){
+        return 'R';
+    }
+    public char juegaAzul(){
+        throw new RuntimeException("Azul no puede poner fichas dos veces seguidas");
+    }
+
+//    public void cambiarTurno();
 //
-//public class TurnoRojo extends Turno{
-//    @Override
-//    public char agregarRojoEnColumna(int columna) {
-//
-//        return 0;
-//    }
-//
-//    @Override
-//    public char agregarAzulEnColumna(int columna) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public String getTurno() {
-//        return "R";
-//    }
-//
-//    @Override
-//    public int setTurno() {
-//        return 0;
-//    }
-//}
+//    public char conseguirFicha();
+
+}
+
