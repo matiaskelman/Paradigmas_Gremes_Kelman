@@ -131,30 +131,158 @@ public class Linea {
 			}
 		}
 		if(this.gameMode == 'B'){
-			int aumentoEnX=0;
-			int aumentoEnY=0;
-			while(aumentoEnX < this.getCantColumnas() && !tablero.get(aumentoEnX).isEmpty() && altura-1 > aumentoEnY) {
-				int contadorFichasRojas = 0;
-				int indexCol = 0;
-				int indexFila = 0;
-				while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila) {
-					//for (int indexCol = 0, aumentoEnY = 0;indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura-1 > aumentoEnY;aumentoEnY++,indexCol++){
-					if (tablero.get(indexCol).get(indexFila) == 'R') {
-						contadorFichasRojas++;
-						indexFila++;
-						indexCol++;
-					}
-					else {break;}
+//			int aumentoEnX=0;
+//			int aumentoEnY=0;
+//			while(aumentoEnX < this.getCantColumnas() && !tablero.get(aumentoEnX).isEmpty() && altura-1 > aumentoEnY) {
+//				int contadorFichasRojas = 0;
+//				int indexCol = 0 + aumentoEnX;
+//				int indexFila = 0 + aumentoEnY;
+//				while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila) {
+//					//for (int indexCol = 0, aumentoEnY = 0;indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura-1 > aumentoEnY;aumentoEnY++,indexCol++){
+//					if (tablero.get(indexCol).get(indexFila) == 'R') {
+//						contadorFichasRojas++;
+//						indexFila++;
+//						indexCol++;
+//					}
+//					else {
+//						aumentoEnX++;
+//						break;}
+//				}
+//				//for (int indexCol = 0, indexFila = 0; indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila; indexFila++, indexCol++) {
+//				//	if (tablero.get(indexCol).get(indexFila) == 'A') {
+//				//		contadorFichasRojas++;
+//				//	} else {
+//				//		break;
+//				//	}
+//				//}
+//			}
+//			while(aumentoEnX > 0 && !tablero.get(aumentoEnX).isEmpty() && altura-1 > aumentoEnY) {
+//				int contadorFichasRojas = 0;
+//				int indexCol = 0 + aumentoEnX;
+//				int indexFila = 0 + aumentoEnY;
+//				while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila) {
+//					//for (int indexCol = 0, aumentoEnY = 0;indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura-1 > aumentoEnY;aumentoEnY++,indexCol++){
+//					if (tablero.get(indexCol).get(indexFila) == 'R') {
+//						contadorFichasRojas++;
+//						indexFila++;
+//						indexCol++;
+//					}
+//					else {
+//						aumentoEnX--;
+//						aumentoEnY++;
+//						break;}
+//				}
+//			}
+			int contadorDeFichasRojas = 0;
+			int contadorDeFichasAzules = 0;
+			int contadorDeFichasTotales = 0;
+			int indexCol = this.columnaDeUltimaFichaPuesta-1;
+			int indexFila = tablero.get(indexCol).size()-1;
+			//primer cuadrante
+			while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura > indexFila) {
+				if (tablero.get(indexCol).get(indexFila) == 'R') {
+					contadorDeFichasRojas++;
+					indexCol++;
+					indexFila++;
+					contadorDeFichasTotales++;
+				} else if (tablero.get(indexCol).get(indexFila) == 'A') {
+					contadorDeFichasAzules++;
+					indexCol++;
+					indexFila++;
+					contadorDeFichasTotales++;
 				}
-				for (int indexCol = 0, indexFila = 0; indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura - 1 > indexFila; indexFila++, indexCol++) {
-					if (tablero.get(indexCol).get(indexFila) == 'A') {
-						contadorFichasRojas++;
-					} else {
-						break;
-					}
-				}
+				if (contadorDeFichasRojas == 4){return true;}
 
+				else if (contadorDeFichasAzules == 4){return true;}
+
+				else if (contadorDeFichasTotales == 4 || indexCol == this.getCantColumnas() || tablero.get(indexCol).isEmpty() || altura == indexFila || tablero.get(indexCol).size() <= tablero.get(indexCol-1).size() ){
+					contadorDeFichasRojas = 0;
+					contadorDeFichasAzules = 0;
+					contadorDeFichasTotales = 0;
+					indexCol = this.columnaDeUltimaFichaPuesta-1;
+					indexFila = tablero.get(indexCol).size()-1;
+					break;
+				}
 			}
+			//segundo cuadrante
+			while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura  > indexFila) {
+				if (tablero.get(indexCol).get(indexFila) == 'R') {
+					contadorDeFichasRojas++;
+					indexCol--;
+					indexFila++;
+					contadorDeFichasTotales++;
+				} else if (tablero.get(indexCol).get(indexFila) == 'A') {
+					contadorDeFichasAzules++;
+					indexCol--;
+					indexFila++;
+					contadorDeFichasTotales++;
+				}
+				if (contadorDeFichasRojas == 4){return true;}
+
+				else if (contadorDeFichasAzules == 4){return true;}
+
+				else if (contadorDeFichasTotales == 4 || indexCol == -1 || tablero.get(indexCol).isEmpty() || altura == indexFila || tablero.get(indexCol).size() <= tablero.get(indexCol+1).size() ){
+					contadorDeFichasRojas = 0;
+					contadorDeFichasAzules = 0;
+					contadorDeFichasTotales = 0;
+					indexCol = this.columnaDeUltimaFichaPuesta-1;
+					indexFila = tablero.get(indexCol).size()-1;
+					break;
+				}
+			}
+			//cuarto cuadrante
+			while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura > indexFila) {
+				if (tablero.get(indexCol).get(indexFila) == 'R') {
+					contadorDeFichasRojas++;
+					indexCol++;
+					indexFila--;
+					contadorDeFichasTotales++;
+				} else if (tablero.get(indexCol).get(indexFila) == 'A') {
+					contadorDeFichasAzules++;
+					indexCol++;
+					indexFila--;
+					contadorDeFichasTotales++;
+				}
+				if (contadorDeFichasRojas == 4){return true;}
+
+				else if (contadorDeFichasAzules == 4){return true;}
+
+				else if (contadorDeFichasTotales == 4 || indexCol == this.getCantColumnas() || tablero.get(indexCol).isEmpty() || -1 == indexFila || tablero.get(indexCol).size() < tablero.get(indexCol-1).size()-1 ){
+					contadorDeFichasRojas = 0;
+					contadorDeFichasAzules = 0;
+					contadorDeFichasTotales = 0;
+					indexCol = this.columnaDeUltimaFichaPuesta-1;
+					indexFila = tablero.get(indexCol).size()-1;
+					break;
+				}
+			}
+			//tercer cuadrante
+			while (indexCol < this.getCantColumnas() && !tablero.get(indexCol).isEmpty() && altura > indexFila) {
+				if (tablero.get(indexCol).get(indexFila) == 'R') {
+					contadorDeFichasRojas++;
+					indexCol--;
+					indexFila--;
+					contadorDeFichasTotales++;
+				} else if (tablero.get(indexCol).get(indexFila) == 'A') {
+					contadorDeFichasAzules++;
+					indexCol--;
+					indexFila--;
+					contadorDeFichasTotales++;
+				}
+				if (contadorDeFichasRojas == 4){return true;}
+
+				else if (contadorDeFichasAzules == 4){return true;}
+
+				else if (contadorDeFichasTotales == 4 || indexCol == -1 || tablero.get(indexCol).isEmpty() || - 1 == indexFila || tablero.get(indexCol).size() < tablero.get(indexCol+1).size()-1 ){
+					contadorDeFichasRojas = 0;
+					contadorDeFichasAzules = 0;
+					contadorDeFichasTotales = 0;
+					indexCol = this.columnaDeUltimaFichaPuesta;
+					indexFila = tablero.get(indexCol).size()-1;
+					break;
+				}
+			}
+
 		}
 		return false;
 	}
