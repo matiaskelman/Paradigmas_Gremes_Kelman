@@ -12,7 +12,7 @@ public class TurnoRojo extends Turno{
 
 //    public void cambiarTurno();
 //
-//    public char conseguirFicha();
+    public char conseguirFicha(){return 'R';}
 
 }
 

@@ -1,8 +1,10 @@
 package linea;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+//import java.util.Arrays;
+//import java.util.List;
 import java.util.stream.Collectors;
+
 
 public abstract class GameMode {
 
@@ -10,14 +12,11 @@ public abstract class GameMode {
 
     public char key;
 
-    public abstract boolean isJuegoGanado();
+    public abstract boolean isJuegoGanado(Linea juego);
 
     public static GameMode modoFor(char modo) {
         List<GameMode> modoGottenFromFilter =
-                posiblesModoDeJuego
-                        .stream()
-                        .filter(posibleModo -> modo == posibleModo.key)
-                        .collect(Collectors.toList());
+                posiblesModoDeJuego.stream().filter(c -> modo == c.key).collect(Collectors.toList());
 
         return modoGottenFromFilter.get(0);
     }

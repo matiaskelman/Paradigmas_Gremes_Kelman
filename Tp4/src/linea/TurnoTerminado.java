@@ -8,6 +8,6 @@ public class TurnoTerminado extends Turno{
 
 //    public void cambiarTurno();
 //
-//    public char conseguirFicha();
+     public char conseguirFicha(){return 'N';}
 
 }

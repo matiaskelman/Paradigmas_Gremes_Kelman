@@ -7,6 +7,6 @@ public abstract class Turno {
 
 //    public abstract void cambiarTurno();
 //
-//    public abstract char conseguirFicha();
+    public abstract char conseguirFicha();
 
 }
