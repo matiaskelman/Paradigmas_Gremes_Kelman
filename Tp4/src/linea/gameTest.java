@@ -185,19 +185,21 @@ public class gameTest {
 	}
 	@Test
 	public void test18GanaAzulEnModoC_Vertical(){
-		Linea linea = new Linea(2,5,'C');
-		linea.agregarAzulEnColumna(2);
+		Linea linea = new Linea(5,5,'C');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(3);
 		linea.agregarAzulEnColumna(2);
 		assertTrue(linea.finished());
 	}
 	@Test
 	public void test19GanaAzulEnModoC_Horizontal(){
 		Linea linea = new Linea(5,5,'C');
+		linea.agregarRojoEnColumna(5);
 		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -210,13 +212,26 @@ public class gameTest {
 	@Test
 	public void test20GanaAzulEnModoC_Diagonal(){
 		Linea linea = new Linea(5,5,'C');
-		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(3);
 		linea.agregarRojoEnColumna(2);
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(3);
-		linea.agregarAzulEnColumna(3);
+		linea.agregarAzulEnColumna(1);
 		linea.agregarRojoEnColumna(4);
 		linea.agregarAzulEnColumna(4);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(4);
+		linea.agregarRojoEnColumna(5);
+		linea.agregarAzulEnColumna(5);
+		linea.agregarRojoEnColumna(5);
+		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(5);
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(5);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(3);
 		assertTrue(linea.finished());
 	}
 	@Test

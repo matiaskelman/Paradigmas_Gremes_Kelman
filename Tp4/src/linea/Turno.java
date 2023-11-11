@@ -9,4 +9,6 @@ public abstract class Turno {
 //
     public abstract char conseguirFicha();
 
+    public abstract String gano();
+
 }

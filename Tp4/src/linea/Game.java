@@ -6,7 +6,7 @@ public class Game {
 
 		System.out.println("Dimensiones?");
 
-		Linea game = new Linea(prompt("Base? "), prompt("Altura? "), 'C');
+		Linea game = new Linea(prompt("Base? "), prompt("Altura? "), 'A');
 
 		System.out.println(game.show());
 

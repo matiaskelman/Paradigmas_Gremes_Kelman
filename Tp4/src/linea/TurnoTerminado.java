@@ -10,4 +10,9 @@ public class TurnoTerminado extends Turno{
 //
      public char conseguirFicha(){return 'N';}
 
+    @Override
+    public String gano() {
+        return null;
+    }
+
 }

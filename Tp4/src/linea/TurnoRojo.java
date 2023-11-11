@@ -14,5 +14,10 @@ public class TurnoRojo extends Turno{
 //
     public char conseguirFicha(){return 'R';}
 
+    @Override
+    public String gano() {
+        return null;
+    }
+
 }
 
