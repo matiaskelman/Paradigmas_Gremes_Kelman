@@ -22,7 +22,7 @@ public class GameMode_A extends GameMode {
                 .filter((ficha) -> juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta() - 1).indexOf(ficha) + 1 > juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta() - 1).size() - 4 && ficha == juego.getTurnoAnterior().conseguirFicha())
                 .mapToInt((ficha) -> 1)    //[A,R,R,R,R]
                 .sum();
-        if (cantidadDeFichas == 4) {
+        if (cantidadDeFichas >= 4) {
             return true;
         }
 
@@ -38,7 +38,7 @@ public class GameMode_A extends GameMode {
 //                estaGanado.set(true);}
 //        });
 
-        int indiceFilaDeUltimaFicha = juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1).size() - 1;
+        int indiceFilaDeUltimaFicha = juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta() - 1).size() - 1;
 //        juego.getTablero().stream().takeWhile((columna) -> juego.getTablero().indexOf(columna) < juego.getColumnaDeUltimaFichaPuesta() + 2
 //                        && juego.getColumnaDeUltimaFichaPuesta() - 2 < juego.getTablero().indexOf(columna)
 //                        && columna.size() >= juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()).size()
@@ -46,32 +46,31 @@ public class GameMode_A extends GameMode {
 //                .forEach((columna) -> {
 //
 //                });
-        double cantidadDeFichass = 0;
+        int cantidadDeFichass = 0;
 //        IntStream.range(juego.getColumnaDeUltimaFichaPuesta(), juego.getColumnaDeUltimaFichaPuesta()+1 ).forEach((indice) -> );
 //        IntStream.range(juego.getColumnaDeUltimaFichaPuesta()-1,juego.getColumnaDeUltimaFichaPuesta()-4).forEachOrdered((indice) -> {
 //            if (indice >= 0 && indice <= juego.getTablero().size()-1 && juego.getTurno().conseguirFicha() == juego.getTablero().get(indice).get(indiceFilaDeUltimaFicha) ) {
 //                cantidadDeFichass++;
 //            }
 //        });
-        cantidadDeFichass = cantidadDeFichass + IntStream.range(juego.getColumnaDeUltimaFichaPuesta()-4,juego.getColumnaDeUltimaFichaPuesta())
-                                                         .map(i ->juego.getColumnaDeUltimaFichaPuesta() - i + juego.getColumnaDeUltimaFichaPuesta()-4 - 1 )
-                                                         .takeWhile((indice) ->  (indice >= 0) || (!juego.getTablero().get(indice).isEmpty()) || (juego.getTurno().conseguirFicha() == juego.getTablero().get(indice).get(indiceFilaDeUltimaFicha))).mapToDouble((each) -> 1.0).sum();
-        IntStream.range(juego.getColumnaDeUltimaFichaPuesta()-4,juego.getColumnaDeUltimaFichaPuesta())
-                .map(i ->juego.getColumnaDeUltimaFichaPuesta() - i + juego.getColumnaDeUltimaFichaPuesta()-4 - 1 ).forEachOrdered(System.out::println);
-        System.out.print("------------------\n");
-        IntStream.range(juego.getColumnaDeUltimaFichaPuesta()-4,juego.getColumnaDeUltimaFichaPuesta()).forEachOrdered(System.out::println);
-        System.out.print("------------------\n");
-        IntStream.range(juego.getColumnaDeUltimaFichaPuesta() , juego.getColumnaDeUltimaFichaPuesta()+3)
-                                                        .takeWhile((indice) ->  (indice <= juego.getTablero().size()-1) || (!juego.getTablero().get(indice).isEmpty()) || (juego.getTurno().conseguirFicha() == juego.getTablero().get(indice).get(indiceFilaDeUltimaFicha))).forEachOrdered(System.out::println);
-        cantidadDeFichass = cantidadDeFichass + IntStream.range(juego.getColumnaDeUltimaFichaPuesta() , juego.getColumnaDeUltimaFichaPuesta()+3)
-                                                         .takeWhile((indice) ->  indice <= juego.getTablero().size()-1 || !juego.getTablero().get(indice).isEmpty() || juego.getTurno().conseguirFicha() == juego.getTablero().get(indice).get(indiceFilaDeUltimaFicha)).sum();
+        cantidadDeFichass = (int) (cantidadDeFichass + IntStream.range(juego.getColumnaDeUltimaFichaPuesta() - 4, juego.getColumnaDeUltimaFichaPuesta())
+                        .map(i -> juego.getColumnaDeUltimaFichaPuesta() - i + juego.getColumnaDeUltimaFichaPuesta() - 4 - 1)
+                        .takeWhile((indice) -> (indice >= 0)
+                                && (!juego.getTablero().get(indice).isEmpty())
+                                && (juego.getTurnoAnterior().conseguirFicha() == juego.getTablero().get(indice).get(indiceFilaDeUltimaFicha))
+                                && juego.getTablero().get(indice).size() >= juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()).size()).mapToDouble((each) -> 1.0).sum());
 
-        if (cantidadDeFichass >= 4.0){return true;}
+        cantidadDeFichass = (int) (cantidadDeFichass + IntStream.range(juego.getColumnaDeUltimaFichaPuesta(), juego.getColumnaDeUltimaFichaPuesta() + 3)
+                        .takeWhile((indice) -> indice <= juego.getTablero().size() - 1
+                                && !juego.getTablero().get(indice).isEmpty()
+                                && juego.getTurnoAnterior().conseguirFicha() == juego.getTablero().get(indice).get(indiceFilaDeUltimaFicha)
+                                && juego.getTablero().get(indice).size() >= juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()).size()).mapToDouble((each) -> 1.0).sum());
+
+        return cantidadDeFichass >= 4;
 
 //3-2-1-4-5-6-7
 //1-2-3-4-5-6-7
         //1-2-3-4  4-1+1-1
-        return false;
     }
 }
 

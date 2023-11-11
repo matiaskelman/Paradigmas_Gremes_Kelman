@@ -123,6 +123,23 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
+	public void test50GanaRojoEnModoB(){
+		Linea linea = new Linea(5,5,'B');
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(4);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(5);
+		linea.agregarRojoEnColumna(3);
+		assertTrue(linea.finished());
+	}
+
+	@Test
 	public void test14GanaAzulEnModoB(){
 		Linea linea = new Linea(5,5,'B');
 		linea.agregarRojoEnColumna(1);
@@ -145,6 +162,7 @@ public class gameTest {
 		linea.agregarAzulEnColumna(5);
 		linea.agregarRojoEnColumna(4);
 		linea.agregarAzulEnColumna(3);
+		System.out.print(linea.show());
 		assertTrue(linea.finished());
 	}
 	@Test
