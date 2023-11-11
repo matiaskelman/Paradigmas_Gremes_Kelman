@@ -45,12 +45,21 @@ public class GameMode_B extends GameMode{
                         && juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1).size()+indice <= juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1 - indice).size()
                         && juego.getTurnoAnterior().conseguirFicha() == juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1 - indice).get(indiceFilaDeUltimaFicha + indice)).mapToDouble((each) -> 1.0).sum());
 
+        //cuarto cuadrante
+        contadorDeFichasCuadrante2y4 = (int) (contadorDeFichasCuadrante2y4 + IntStream.range(1,4).takeWhile((indice) ->
+                            juego.getColumnaDeUltimaFichaPuesta()-1 + indice <= juego.getTablero().size() -1
+                        && indiceFilaDeUltimaFicha-indice >= 0
+                        && !juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1 + indice).isEmpty()
+                        && juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1 ).size()-indice <= juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1 + indice).size()
+                        && juego.getTurnoAnterior().conseguirFicha() == juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta()-1 + indice).get(indiceFilaDeUltimaFicha - indice)).mapToDouble((each) -> 1.0).sum());
+
 
 
 
 
 
         if (contadorDeFichasCuadrante1y3 >= 4){return true;}
+        if (contadorDeFichasCuadrante2y4 >= 4){return true;}
 
 
 

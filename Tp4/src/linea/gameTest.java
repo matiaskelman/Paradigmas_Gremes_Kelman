@@ -107,7 +107,7 @@ public class gameTest {
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test13GanaRojoEnModoB(){
+	public void test13GanaRojoEnModoB_TercerCuadrante(){
 		Linea linea = new Linea(5,5,'B');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -120,10 +120,11 @@ public class gameTest {
 		linea.agregarRojoEnColumna(5);
 		linea.agregarAzulEnColumna(4);
 		linea.agregarRojoEnColumna(4);
+		System.out.print(linea.show());
 		assertTrue(linea.finished());
 	}
 	@Test
-	public void test50GanaRojoEnModoB(){
+	public void test50GanaRojoEnModoB_PrimerYTercerCuadrante(){
 		Linea linea = new Linea(5,5,'B');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(2);
@@ -136,11 +137,12 @@ public class gameTest {
 		linea.agregarRojoEnColumna(4);
 		linea.agregarAzulEnColumna(5);
 		linea.agregarRojoEnColumna(3);
+		System.out.print(linea.show());
 		assertTrue(linea.finished());
 	}
 
 	@Test
-	public void test14GanaAzulEnModoB(){
+	public void test14GanaAzulEnModoB_PrimerYTercerCuadrante(){
 		Linea linea = new Linea(5,5,'B');
 		linea.agregarRojoEnColumna(1);
 		linea.agregarAzulEnColumna(3);
@@ -162,6 +164,43 @@ public class gameTest {
 		linea.agregarAzulEnColumna(5);
 		linea.agregarRojoEnColumna(4);
 		linea.agregarAzulEnColumna(3);
+		System.out.print(linea.show());
+		assertTrue(linea.finished());
+	}
+@Test
+	public void test13GanaRojoEnModoB_CuartoCuadrante(){
+		Linea linea = new Linea(5,5,'B');
+		linea.agregarRojoEnColumna(5);
+		linea.agregarAzulEnColumna(4);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(3);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(3);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(2);
+		System.out.print(linea.show());
+		assertTrue(linea.finished());
+	}
+
+	@Test
+	public void test13GanaRojoEnModoB_SegundoCuadrante(){
+		Linea linea = new Linea(5,5,'B');
+		linea.agregarRojoEnColumna(1);
+		linea.agregarAzulEnColumna(4);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(3);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(3);
+		linea.agregarAzulEnColumna(2);
+		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(2);
+		linea.agregarAzulEnColumna(1);
+		linea.agregarRojoEnColumna(5);
 		System.out.print(linea.show());
 		assertTrue(linea.finished());
 	}
