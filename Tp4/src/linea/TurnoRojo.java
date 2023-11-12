@@ -10,10 +10,10 @@ public class TurnoRojo extends Turno{
         throw new RuntimeException("Azul no puede poner fichas dos veces seguidas");
     }
 
-//    public void cambiarTurno();
-//
     public char conseguirFicha(){return 'R';}
-
+    public String getTurno() {
+        return "Es turno del Rojo";
+    }
     @Override
     public boolean gano(Linea juego) {
         juego.setGanoRojo(true);
