@@ -235,9 +235,14 @@ public class gameTest {
 		linea.agregarAzulEnColumna(2);
 		linea.agregarRojoEnColumna(2);
 		linea.agregarAzulEnColumna(3);
+		linea.agregarRojoEnColumna(4);
+		linea.agregarAzulEnColumna(3);
 		linea.agregarRojoEnColumna(3);
 		linea.agregarAzulEnColumna(4);
+		linea.agregarRojoEnColumna(5);
+		linea.agregarAzulEnColumna(4);
 		linea.agregarRojoEnColumna(4);
+		System.out.print(linea.show());
 		assertTrue(linea.finished());
 	}
 	@Test
