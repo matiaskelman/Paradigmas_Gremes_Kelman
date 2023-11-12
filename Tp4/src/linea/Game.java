@@ -6,19 +6,19 @@ public class Game {
 
 		System.out.println("Dimensiones?");
 
-		Linea game = new Linea(prompt("Base? "), prompt("Altura? "), 'A');
+		Linea game = new Linea(promptInt("Base? "), promptInt("Altura? "), (char) promptChar("Modo?"));
 
 		System.out.println(game.show());
 
 		while (!game.finished()) {
 
-			game.agregarRojoEnColumna(prompt("Red? "));
+			game.agregarRojoEnColumna(promptInt("Red? "));
 
 			System.out.println(game.show());
 
 			if (!game.finished()) {
 
-				game.agregarAzulEnColumna(prompt("Blue? "));
+				game.agregarAzulEnColumna(promptInt("Blue? "));
 
 				System.out.println(game.show());
 
@@ -28,11 +28,18 @@ public class Game {
 
 	}
 
-	private static int prompt(String message) {
+	private static int promptInt(String message) {
 
 		System.out.print(message);
 
 		return Integer.parseInt(System.console().readLine());
+
+	}
+	private static char promptChar(String message) {
+
+		System.out.print(message);
+
+		return System.console().readLine().charAt(0);
 
 	}
 
