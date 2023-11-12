@@ -7,8 +7,6 @@ public abstract class Turno {
 
 
     public abstract char conseguirFicha();
-   public abstract String getTurno();
-
-    public abstract boolean gano(Linea juego);
+    public abstract String getTurno(String ganador);
 
 }
