@@ -12,8 +12,8 @@ public class GameMode_A extends GameMode {
     {this.key = 'A';}
 
     @Override
-    public boolean isJuegoGanado(Linea juego) {return juego.victoriaHorizontal() || juego.victoriaVertical();}
-
+    public boolean isJuegoGanado(Linea juego) {
+        return juego.victoriaHorizontal() || juego.victoriaVertical();}
     }
 
 //        int cantidadDeFichas = juego.getTablero().get(juego.getColumnaDeUltimaFichaPuesta() - 1).stream()

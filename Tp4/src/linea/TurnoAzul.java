@@ -11,8 +11,8 @@ public class TurnoAzul extends Turno{
     public char conseguirFicha(){return 'A';}
 
     @Override
-    public String gano() {
-        return null;
+    public boolean gano(Linea juego) {
+        return false;
     }
 
 }

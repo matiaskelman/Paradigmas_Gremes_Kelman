@@ -15,8 +15,9 @@ public class TurnoRojo extends Turno{
     public char conseguirFicha(){return 'R';}
 
     @Override
-    public String gano() {
-        return null;
+    public boolean gano(Linea juego) {
+        juego.setGanoRojo(true);
+        return juego.getGameMode().isJuegoGanado(juego);
     }
 
 }

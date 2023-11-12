@@ -10,13 +10,14 @@ public class Linea {
 
 	private int altura;
 	private Turno turno;
-	private Turno turnoAnterior;
 	private int columnaDeUltimaFichaPuesta;
 	private int filaDeUltimaFichaPuesta;
+	private int totalFichasRojas;
+	private int totalFichasAzules;
 	List<ArrayList<Character>> tablero;
 	private boolean ganoRojo = false;
 	private boolean ganoAzul = false;
-	private String ganador;
+	private String ganador = "No gano nadie";
 
 	public Linea(int columnas, int altura, char gameMode) {
 		this.tablero = new ArrayList<>();
@@ -58,10 +59,6 @@ public class Linea {
 		return turno;
 	}
 
-	public Turno getTurnoAnterior() {
-		return turnoAnterior;
-	}
-
 	public List<ArrayList<Character>> getTablero() {
 		return this.tablero;
 	}
@@ -70,27 +67,46 @@ public class Linea {
 		return gameMode;
 	}
 
+	public void setGanoRojo(boolean estado) {this.ganoRojo = estado; }
+
+	public void agregarFicha(int columna, char tipoDeFicha) {
+		if (columna > tablero.size() || columna < 1){
+			throw new RuntimeException("Esta columna esta fuera de rango");
+		}
+		else if (tablero.get(columna-1).size() == altura){
+			throw new RuntimeException("Esta columna ya esta llena");
+		}
+		else {
+			tablero.get(columna - 1).add(tipoDeFicha);
+			this.columnaDeUltimaFichaPuesta = columna;
+			this.filaDeUltimaFichaPuesta = this.getTablero().get(getIndexColumnaDeUltimaFichaPuesta()).size();
+		}
+
+	}
+
 	public void agregarRojoEnColumna(int columna) {
-		tablero.get(columna - 1).add(turno.juegaRojo());
-		this.turno = new TurnoAzul();
-		this.turnoAnterior = new TurnoRojo();
-		this.columnaDeUltimaFichaPuesta = columna;
-		this.filaDeUltimaFichaPuesta = this.getTablero().get(getIndexColumnaDeUltimaFichaPuesta()).size();
+		agregarFicha(columna, turno.juegaRojo());
+		totalFichasRojas++;
 		ganoRojo = gameMode.isJuegoGanado(this);
+		if(ganoRojo){
+			this.ganador = "Rojo";
+			this.turno = new TurnoTerminado();}
+		else {this.turno = new TurnoAzul();}
 
 	}
 
 	public void agregarAzulEnColumna(int columna) {
-		tablero.get(columna - 1).add(turno.juegaAzul());
-		this.turno = new TurnoRojo();
-		this.turnoAnterior = new TurnoAzul();
-		this.columnaDeUltimaFichaPuesta = columna;
-		this.filaDeUltimaFichaPuesta = this.getTablero().get(getIndexColumnaDeUltimaFichaPuesta()).size();
+		agregarFicha(columna, turno.juegaAzul());
+		totalFichasAzules++;
 		ganoAzul = gameMode.isJuegoGanado(this);
+		if(ganoAzul){
+			this.ganador = "Azul";
+			this.turno = new TurnoTerminado();}
+		else {this.turno = new TurnoRojo();}
 	}
 
-	public String show() {
 
+	public String show() {
 		return tablero.stream()
 				.map(row -> row.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append))
 				.collect(StringBuilder::new, (result, row) -> result.append(row).append("\n"), StringBuilder::append)
@@ -98,13 +114,13 @@ public class Linea {
 	}
 
 	public boolean finished() {
-		return gameMode.isJuegoGanado(this);
+		return ganoAzul || ganoRojo; //|| tablero.size() * altura
 	}
 
 	public boolean victoriaVertical() {
 		int cantidadDeFichas = this.getTablero().get(getIndexColumnaDeUltimaFichaPuesta()).stream()
-				.filter((ficha) -> this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).indexOf(ficha) + 1 > this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size() - 4 && ficha == this.getTurnoAnterior().conseguirFicha())
-				.mapToInt((ficha) -> 1)    //[A,R,R,R,R]
+				.filter((ficha) -> this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).indexOf(ficha) + 1 > this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size() - 4 && ficha == this.getTurno().conseguirFicha())
+				.mapToInt((ficha) -> 1)
 				.sum();
 		return cantidadDeFichas >= 4;
 	}
@@ -112,24 +128,20 @@ public class Linea {
 	public boolean victoriaHorizontal() {
 		int cantidadDeFichass = 0;
 
-		IntStream.range(this.getColumnaDeUltimaFichaPuesta() - 4, this.getColumnaDeUltimaFichaPuesta()).forEachOrdered(System.out::println);
-		System.out.print("=============\n");
-		IntStream.range(this.getColumnaDeUltimaFichaPuesta() - 4, this.getColumnaDeUltimaFichaPuesta()).map(i -> this.getColumnaDeUltimaFichaPuesta() - i + this.getColumnaDeUltimaFichaPuesta() - 4 - 1).forEachOrdered(System.out::println);
-		System.out.print("=============\n");
 		cantidadDeFichass = (int) (cantidadDeFichass + IntStream.range(this.getColumnaDeUltimaFichaPuesta() - 4, this.getColumnaDeUltimaFichaPuesta())
 				.map(i -> this.getColumnaDeUltimaFichaPuesta() - i + this.getColumnaDeUltimaFichaPuesta() - 4 - 1) //invierte la lista
 				.takeWhile((indice) ->
 						   indice >= 0
 						&& !this.getTablero().get(indice).isEmpty()
-						&& this.getTablero().get(indice).size() >= this.getTablero().get(this.getColumnaDeUltimaFichaPuesta()-1).size()
-						&& this.getTurnoAnterior().conseguirFicha() == this.getTablero().get(indice).get(this.getIndexFilaDeUltimaFichaPuesta())).mapToDouble((each) -> 1.0).sum());
+						&& this.getTablero().get(indice).size() >= this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size()
+						&& this.getTurno().conseguirFicha() == this.getTablero().get(indice).get(this.getIndexFilaDeUltimaFichaPuesta())).mapToDouble((each) -> 1.0).sum());
 
 		cantidadDeFichass = (int) (cantidadDeFichass + IntStream.range(this.getColumnaDeUltimaFichaPuesta(), this.getColumnaDeUltimaFichaPuesta() + 3)
 				.takeWhile((indice) ->
 						   indice <= this.getTablero().size() - 1
 						&& !this.getTablero().get(indice).isEmpty()
-						&& this.getTablero().get(indice).size() >= this.getTablero().get(this.getColumnaDeUltimaFichaPuesta()-1).size()
-						&& this.getTurnoAnterior().conseguirFicha() == this.getTablero().get(indice).get(this.getIndexFilaDeUltimaFichaPuesta())).mapToDouble((each) -> 1.0).sum());
+						&& this.getTablero().get(indice).size() >= this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size()
+						&& this.getTurno().conseguirFicha() == this.getTablero().get(indice).get(this.getIndexFilaDeUltimaFichaPuesta())).mapToDouble((each) -> 1.0).sum());
 
 		return cantidadDeFichass >= 4;
 	}
@@ -143,7 +155,7 @@ public class Linea {
 						&& this.getIndexFilaDeUltimaFichaPuesta() + indice <= this.getAltura()-1
 						&& !this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).isEmpty()
 						&& this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size()+indice <= this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).size()
-						&& this.getTurnoAnterior().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).get(this.getIndexFilaDeUltimaFichaPuesta() + indice)).mapToDouble((each) -> 1.0).sum());
+						&& this.getTurno().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).get(this.getIndexFilaDeUltimaFichaPuesta() + indice)).mapToDouble((each) -> 1.0).sum());
 
 		//tercer cuadrante
 		contadorDeFichasCuadrante1y3 = (int) (contadorDeFichasCuadrante1y3 + IntStream.range(1,4).takeWhile((indice) ->
@@ -151,7 +163,7 @@ public class Linea {
 						&& this.getIndexFilaDeUltimaFichaPuesta() - indice >= 0
 						&& !this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).isEmpty()
 						&& this.getTablero().get(this.getColumnaDeUltimaFichaPuesta() - indice).size()-1 <= this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).size()
-						&& this.getTurnoAnterior().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).get(this.getIndexFilaDeUltimaFichaPuesta() - indice)).mapToDouble((each) -> 1.0).sum());
+						&& this.getTurno().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).get(this.getIndexFilaDeUltimaFichaPuesta() - indice)).mapToDouble((each) -> 1.0).sum());
 
 		return contadorDeFichasCuadrante1y3 >= 4;
 	}
@@ -165,7 +177,7 @@ public class Linea {
 						&& this.getIndexFilaDeUltimaFichaPuesta() + indice <= this.getAltura()-1
 						&& !this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).isEmpty()
 						&& this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size() + indice <= this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).size()
-						&& this.getTurnoAnterior().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).get(this.getIndexFilaDeUltimaFichaPuesta() + indice)).mapToDouble((each) -> 1.0).sum());
+						&& this.getTurno().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() - indice).get(this.getIndexFilaDeUltimaFichaPuesta() + indice)).mapToDouble((each) -> 1.0).sum());
 
 		//cuarto cuadrante
 		contadorDeFichasCuadrante2y4 = (int) (contadorDeFichasCuadrante2y4 + IntStream.range(1,4).takeWhile((indice) ->
@@ -173,8 +185,10 @@ public class Linea {
 						&& this.getIndexFilaDeUltimaFichaPuesta() - indice >= 0
 						&& !this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).isEmpty()
 						&& this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta()).size() - indice <= this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).size()
-						&& this.getTurnoAnterior().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).get(this.getIndexFilaDeUltimaFichaPuesta() - indice)).mapToDouble((each) -> 1.0).sum());
+						&& this.getTurno().conseguirFicha() == this.getTablero().get(this.getIndexColumnaDeUltimaFichaPuesta() + indice).get(this.getIndexFilaDeUltimaFichaPuesta() - indice)).mapToDouble((each) -> 1.0).sum());
 
 		return contadorDeFichasCuadrante2y4 >= 4;
 	}
+
+	public boolean empate() {return !ganoRojo && !ganoAzul && tablero.size()*altura == totalFichasRojas + totalFichasAzules;}
 }

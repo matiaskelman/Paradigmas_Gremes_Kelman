@@ -9,6 +9,6 @@ public abstract class Turno {
 //
     public abstract char conseguirFicha();
 
-    public abstract String gano();
+    public abstract boolean gano(Linea juego);
 
 }
